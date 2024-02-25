@@ -57,15 +57,25 @@ const search = ({ properties }) => {
   );
 };
 
-//fetching data from the api
-export async function getStaticProps() {
-  const propertiesForSale = await fetchApi(
-    `${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`
+export async function getStaticProps({ query }) {
+  const purpose = query?.purpose || "for-rent";
+  const rentFrequency = query?.rentFrequency || "yearly";
+  const minPrice = query?.minPrice || "0";
+  const maxPrice = query?.maxPrice || "1000000";
+  const roomsMin = query?.roomsMin || "0";
+  const bathsMin = query?.bathsMin || "0";
+  const sort = query?.sort || "price-desc";
+  const areaMax = query?.areaMax || "35000";
+  const locationExternalIDs = query?.locationExternalIDs || "5002";
+  const categoryExternalID = query?.categoryExternalID || "4";
+
+  const data = await fetchApi(
+    `${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&rentFrequency=${rentFrequency}&priceMin=${minPrice}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`
   );
 
   return {
     props: {
-      propertiesForSale: propertiesForSale?.hits,
+      properties: data.hits,
     },
   };
 }
