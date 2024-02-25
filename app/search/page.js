@@ -24,7 +24,7 @@ const search = () => {
         onClick={() => setSearchFilters((prevFilters) => !prevFilters)}
       >
         <Text>Search Property By Filters</Text>
-        <Icon paddingLeft="2" w="7" as={BsFilter} />
+        <Icon paddingleft="2" w="7" as={BsFilter} />
       </Flex>
       {searchFilters && <SearchFilters />}
     </Box>

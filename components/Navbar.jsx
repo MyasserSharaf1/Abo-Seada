@@ -16,7 +16,7 @@ import { FiKey } from "react-icons/fi";
 const Navbar = () => (
   <Flex p="2" borderBottom="1px" borderColor="gray.100">
     <Box fontSize="3xl" color="blue.400" fontWeight="bold">
-      <Link href="/" paddingLeft="2">
+      <Link href="/" paddingleft="2">
         ASKUN
       </Link>
     </Box>
@@ -31,16 +31,16 @@ const Navbar = () => (
         />
 
         <MenuList>
-          <Link href="/" passhref>
+          <Link href="/" passhref="true">
             <MenuItem icon={<FcHome />}> Home</MenuItem>
           </Link>
-          <Link href="/search" passhref>
+          <Link href="/search" passhref="true">
             <MenuItem icon={<BsSearch />}> Search</MenuItem>
           </Link>
-          <Link href="/search?purpose=for-sale" passhref>
+          <Link href="/search?purpose=for-sale" passhref="true">
             <MenuItem icon={<FcAbout />}> Buy Property</MenuItem>
           </Link>
-          <Link href="/search?purpose=for-rent" passhref>
+          <Link href="/search?purpose=for-rent" passhref="true">
             <MenuItem icon={<FiKey />}> Rent Property</MenuItem>
           </Link>
         </MenuList>
