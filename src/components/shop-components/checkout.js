@@ -95,7 +95,7 @@ class Checkout extends Component {
 									<option>Select Country</option>
 									<option>Australia</option>
 									<option>Canada</option>
-									<option>China</option>
+									<option>EGYPT</option>
 									<option>Morocco</option>
 									<option>Saudi Arabia</option>
 									<option>United Kingdom (UK)</option>

@@ -2,15 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, HashRouter, Route, Switch } from "react-router-dom";
 import HomeV1 from './components/home-v1';
-import HomeV2 from './components/home-v2';
-import HomeV3 from './components/home-v3';
-import HomeV4 from './components/home-v4';
-import HomeV5 from './components/home-v5';
-import HomeV6 from './components/home-v6';
-import HomeV7 from './components/home-v7';
-import HomeV8 from './components/home-v8';
-import HomeV9 from './components/home-v9';
-import HomeV10 from './components/home-v11';
+
 
 import About from './components/about';
 import Service from './components/service';
@@ -56,15 +48,7 @@ class Root extends Component {
 	                <div>
 	                <Switch>
 	                    <Route exact path="/" component={HomeV1} />
-                        <Route path="/home-v2" component={HomeV2} />
-                        <Route path="/home-v3" component={HomeV3} />
-                        <Route path="/home-v4" component={HomeV4} />
-                        <Route path="/home-v5" component={HomeV5} />
-                        <Route path="/home-v6" component={HomeV6} />
-                        <Route path="/home-v7" component={HomeV7} />
-                        <Route path="/home-v8" component={HomeV8} />
-                        <Route path="/home-v9" component={HomeV9} />
-                        <Route path="/home-v10" component={HomeV10} />
+                   
 
                         <Route path="/about" component={About} />
                         <Route path="/service" component={Service} />

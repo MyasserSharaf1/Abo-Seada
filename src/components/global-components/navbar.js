@@ -16,13 +16,12 @@ class Navbar extends Component {
                     <ul>
                       <li>
                         <a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you">
-                          <i className="icon-mail" /> info@webmail.com
+                          <i className="icon-mail" /> info@Askun.com
                         </a>
                       </li>
                       <li>
                         <a href="locations.html">
-                          <i className="icon-placeholder" /> 15/A, Nest Tower,
-                          NYC
+                          <i className="icon-placeholder" />5 AAST Sheraton
                         </a>
                       </li>
                     </ul>
@@ -117,111 +116,6 @@ class Navbar extends Component {
                         <ul>
                           <li className="menu-icon">
                             <Link to="/">Home</Link>
-                            <ul className="sub-menu menu-pages-img-show">
-                              <li>
-                                <Link to="/">Home Style 01</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-1.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v2">Home Style 02</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-2.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v3">Home Style 03</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-3.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v4">Home Style 04</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-4.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v5">
-                                  Home Style 05{" "}
-                                  <span className="menu-item-badge">video</span>
-                                </Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-5.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v6">Home Style 06</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-6.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v7">Home Style 07</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-7.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v8">Home Style 08</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-8.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v9">Home Style 09</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-9.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                              <li>
-                                <Link to="/home-v10">Home Style 10</Link>
-                                <img
-                                  src={
-                                    publicUrl +
-                                    "assets/img/home-demos/home-11.jpg"
-                                  }
-                                  alt="#"
-                                />
-                              </li>
-                            </ul>
                           </li>
                           <li className="menu-icon">
                             <Link to="/about">About</Link>
@@ -240,9 +134,7 @@ class Navbar extends Component {
                               <li>
                                 <Link to="/portfolio">Portfolio</Link>
                               </li>
-                              <li>
-                                <Link to="/portfolio-v2">Portfolio - 02</Link>
-                              </li>
+
                               <li>
                                 <Link to="/portfolio-details">
                                   Portfolio Details
@@ -271,16 +163,7 @@ class Navbar extends Component {
                               <li>
                                 <Link to="/shop-grid">Shop Grid</Link>
                               </li>
-                              <li>
-                                <Link to="/shop-left-sidebar">
-                                  Shop Left sidebar
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to="/shop-right-sidebar">
-                                  Shop Right sidebar
-                                </Link>
-                              </li>
+
                               <li>
                                 <Link to="/product-details">Shop Details</Link>
                               </li>
@@ -310,16 +193,7 @@ class Navbar extends Component {
                               <li>
                                 <Link to="/blog-grid">News Grid</Link>
                               </li>
-                              <li>
-                                <Link to="/blog-left-sidebar">
-                                  News Left sidebar
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to="/blog-right-sidebar">
-                                  News Right sidebar
-                                </Link>
-                              </li>
+
                               <li>
                                 <Link to="/blog-details">News details</Link>
                               </li>
@@ -334,11 +208,7 @@ class Navbar extends Component {
                                   <li>
                                     <Link to="/portfolio">Portfolio</Link>
                                   </li>
-                                  <li>
-                                    <Link to="/portfolio-v2">
-                                      Portfolio - 02
-                                    </Link>
-                                  </li>
+
                                   <li>
                                     <Link to="/portfolio-details">
                                       Portfolio Details
@@ -386,16 +256,7 @@ class Navbar extends Component {
                                   <li>
                                     <Link to="/shop">Shop</Link>
                                   </li>
-                                  <li>
-                                    <Link to="/shop-left-sidebar">
-                                      Shop Left sidebar
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/shop-right-sidebar">
-                                      Shop right sidebar
-                                    </Link>
-                                  </li>
+
                                   <li>
                                     <Link to="/shop-grid">Shop Grid</Link>
                                   </li>
@@ -483,7 +344,7 @@ class Navbar extends Component {
                       className="ltn__utilize-toggle"
                     >
                       <i className="icon-shopping-cart"></i>
-                      <sup>2</sup>
+                      <sup>1</sup>
                     </a>
                   </div>
                   {/* mini-cart */}
@@ -800,73 +661,16 @@ class Navbar extends Component {
                 </div>
                 <div className="mini-cart-info go-top">
                   <h6>
-                    <Link to="/product-details">Wheel Bearing Retainer</Link>
+                    <Link to="/product-details">شقة في التجمع الخامس</Link>
                   </h6>
-                  <span className="mini-cart-quantity">1 x $65.00</span>
-                </div>
-              </div>
-              <div className="mini-cart-item clearfix">
-                <div className="mini-cart-img go-top">
-                  <Link to="/product-details">
-                    <img
-                      src={publicUrl + "assets/img/product/2.png"}
-                      alt="Image"
-                    />
-                  </Link>
-                  <span className="mini-cart-item-delete">
-                    <i className="icon-cancel" />
-                  </span>
-                </div>
-                <div className="mini-cart-info go-top">
-                  <h6>
-                    <Link to="/product-details">Brake Conversion Kit</Link>
-                  </h6>
-                  <span className="mini-cart-quantity">1 x $85.00</span>
-                </div>
-              </div>
-              <div className="mini-cart-item clearfix">
-                <div className="mini-cart-img go-top">
-                  <Link to="/product-details">
-                    <img
-                      src={publicUrl + "assets/img/product/3.png"}
-                      alt="Image"
-                    />
-                  </Link>
-                  <span className="mini-cart-item-delete">
-                    <i className="icon-cancel" />
-                  </span>
-                </div>
-                <div className="mini-cart-info go-top">
-                  <h6>
-                    <Link to="/product-details">OE Replica Wheels</Link>
-                  </h6>
-                  <span className="mini-cart-quantity">1 x $92.00</span>
-                </div>
-              </div>
-              <div className="mini-cart-item clearfix">
-                <div className="mini-cart-img go-top">
-                  <Link to="/product-details">
-                    <img
-                      src={publicUrl + "assets/img/product/4.png"}
-                      alt="Image"
-                    />
-                  </Link>
-                  <span className="mini-cart-item-delete">
-                    <i className="icon-cancel" />
-                  </span>
-                </div>
-                <div className="mini-cart-info go-top">
-                  <h6>
-                    <Link to="/product-details">Shock Mount Insulator</Link>
-                  </h6>
-                  <span className="mini-cart-quantity">1 x $68.00</span>
+                  <span className="mini-cart-quantity">1 x 10000000</span>
                 </div>
               </div>
             </div>
             <div className="mini-cart-footer">
               <div className="mini-cart-sub-total">
                 <h5>
-                  Subtotal: <span>$310.00</span>
+                  Subtotal: <span>10000000</span>
                 </h5>
               </div>
               <div className="btn-wrapper go-top">
@@ -877,7 +681,6 @@ class Navbar extends Component {
                   Checkout
                 </Link>
               </div>
-              <p>Free Shipping on All Orders Over $100!</p>
             </div>
           </div>
         </div>

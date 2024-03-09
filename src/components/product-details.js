@@ -11,7 +11,7 @@ const Product_Details = () => {
         <Navbar />
         <PageHeader headertitle="Product Details" customclass="mb-0" />
         <ProductSlider />
-        <ProductDetails />
+        {/* <ProductDetails /> */}
         <CallToActionV1 />
         <Footer />
     </div>
