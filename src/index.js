@@ -22,10 +22,12 @@ import ShopGrid from './components/shop-grid';
 import ProdductDetails from './components/product-details';
 import ShopLeftSidebar from './components/shop-left-sidebar';
 import ShopRightSidebar from './components/shop-right-sidebar';
+import ShopDetails from './components/shop-components/shop-details';
 
 import BlogGrid from './components/blog-grid';
 import BlogLeftSidebar from './components/blog-left-sidebar';
 import BlogRightSidebar from './components/blog-right-sidebar';
+
 import Blog from './components/blog';
 
 import BlogDetails from './components/blog-details';
@@ -47,12 +49,14 @@ class Root extends Component {
                 <HashRouter basename="/">
 	                <div>
 	                <Switch>
-	                    <Route exact path="/" component={HomeV1} />
+	                    <Route exact path="/home-v1" component={HomeV1} />
+                        <Route path="/shop-details/:id" component={ShopDetails} />
                    
 
                         <Route path="/about" component={About} />
                         <Route path="/service" component={Service} />
                         <Route path="/service-details" component={ ServiceDetails } />
+                        <Route path="/shop-details" component={ ShopDetails } />
                         <Route path="/portfolio" component={ Portfolio } />
                         <Route path="/portfolio-v2" component={ PortfolioV2 } />
                         <Route path="/portfolio-details" component={ PortfolioDetails } />
