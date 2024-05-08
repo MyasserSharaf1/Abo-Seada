@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
+import { useLocation } from 'react-router-dom';
 
-class TeamDetails extends Component {
-
-    render() {
-
-        let publicUrl = process.env.PUBLIC_URL+'/'
+function TeamDetails() {
+    const location = useLocation();
+    const { propertyData } = location.state;
+  
 
     return <div className="ltn__team-details-area mb-120">
                 <div className="container">
@@ -14,17 +14,10 @@ class TeamDetails extends Component {
                     <div className="col-lg-4">
                     <div className="ltn__team-details-member-info text-center mb-40">
                         <div className="team-details-img">
-                        <img src={publicUrl+"assets/img/team/4.jpg"} alt="Team Member Image" />
+                        <img img src={propertyData.ownerAgent?.user_image} alt="Team Member Image" />
                         </div>
-                        <h2>Rosalina D. William</h2>
+                        <h2>{propertyData.ownerAgent?.name}</h2>
                         <h6 className="text-uppercase ltn__secondary-color">Property Seller</h6>
-                        <div className="ltn__social-media-3">
-                        <ul>
-                            <li><a href="#" title="Facebook"><i className="fab fa-facebook-f" /></a></li>
-                            <li><a href="#" title="Twitter"><i className="fab fa-twitter" /></a></li>
-                            <li><a href="#" title="Linkedin"><i className="fab fa-linkedin" /></a></li>
-                        </ul>
-                        </div>
                     </div>
                     </div>
                     <div className="col-lg-8">
@@ -36,7 +29,6 @@ class TeamDetails extends Component {
                             <ul>
                                 <li><strong>Positions:</strong> Senior Property Seller</li>
                                 <li><strong>Experience:</strong> 10+ Years</li>
-                                <li><strong>Location:</strong> 13/A, NYC</li>
                                 <li><strong>Practice Area:</strong> Property Seller</li>
                             </ul>
                             </div>
@@ -44,15 +36,13 @@ class TeamDetails extends Component {
                         <div className="col-lg-6">
                             <div className="ltn__team-details-member-about">
                             <ul>
-                                <li><strong>Email:</strong> example@example.com</li>
-                                <li><strong>Fax:</strong> +0123-456 789</li>
-                                <li><strong>Phone:</strong> +0123-456 789</li>
+                                <li><strong>Email:</strong>{propertyData.ownerAgent?.slug}@gmail.com</li>
+                                <li><strong>Phone:</strong>{propertyData.phoneNumber?.mobile}</li>
                             </ul>
                             </div>
                         </div>
-                        </div>
+                        </div>//
                         <hr />
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequu ntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
                         <div className="row ltn__custom-gutter mt-50 mb-20">
                         <div className="col-xl-4 col-sm-6 col-12 go-top">
                             <div className="ltn__feature-item ltn__feature-item-6 text-center">
@@ -60,10 +50,10 @@ class TeamDetails extends Component {
                                 <span><i className="icon-tire" /></span>
                             </div>
                             <div className="ltn__feature-info">
-                                <h4><Link to="/service">Home Buying</Link></h4>
+                                <h4><Link >Home Buying</Link></h4>
                                 <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or</p>
                                 {/* <a class="ltn__service-btn" href="service.html">Read More</a> */}
-                                <Link className="ltn__service-btn" to="/service-details">Read More <i className="flaticon-right-arrow" /></Link>
+                                <Link className="ltn__service-btn" >Read More <i className="flaticon-right-arrow" /></Link>
                             </div>
                             </div>
                         </div>
@@ -73,10 +63,10 @@ class TeamDetails extends Component {
                                 <span><i className="icon-mechanic" /></span>
                             </div>
                             <div className="ltn__feature-info go-top">
-                                <h4><Link to="/team">Home Selling</Link></h4>
+                                <h4><Link >Home Selling</Link></h4>
                                 <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or</p>
                                 {/* <a class="ltn__service-btn" href="service.html">Read More</a> */}
-                                <Link className="ltn__service-btn" to="/service-details">Read More <i className="flaticon-right-arrow" /></Link>
+                                <Link className="ltn__service-btn" >Read More <i className="flaticon-right-arrow" /></Link>
                             </div>
                             </div>
                         </div>
@@ -86,10 +76,10 @@ class TeamDetails extends Component {
                                 <span><i className="icon-wheel-1" /></span>
                             </div>
                             <div className="ltn__feature-info go-top">
-                                <h4><Link to="/service-details">Escrow Services</Link></h4>
+                                <h4><Link >Escrow Services</Link></h4>
                                 <p>Lorem ipsum dolor sit ame it, consectetur adipisicing elit, sed do eiusmod te mp or</p>
                                 {/* <a class="ltn__service-btn" href="service.html">Read More</a> */}
-                                <Link className="ltn__service-btn" to="/service-details">Read More <i className="flaticon-right-arrow" /></Link>
+                                <Link className="ltn__service-btn" >Read More <i className="flaticon-right-arrow" /></Link>
                             </div>
                             </div>
                         </div>
@@ -144,6 +134,6 @@ class TeamDetails extends Component {
                 </div>
             </div>
         }
-}
+
 
 export default TeamDetails

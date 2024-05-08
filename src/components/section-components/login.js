@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { Link, Redirect } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 
 // Firebase configuration
@@ -13,11 +13,15 @@ const firebaseConfig = {
 	appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
   };
 
+
 // Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 
 // Get auth instance
 const auth = getAuth();
+auth.languageCode = 'en';
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 class Login extends Component {
   constructor(props) {
@@ -27,23 +31,55 @@ class Login extends Component {
       password: '',
       resetEmail: '',
       error: null,
+      isAuthenticated: false // Initialize isAuthenticated to false
     };
   }
 
+  handleGoogleSignIn = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        // Handle Google sign-in success
+        const user = result.user;
+        console.log('Google Sign-in Successful:', user);
+        this.setState({ isAuthenticated: true });
+      })
+      .catch((error) => {
+        // Handle Google sign-in error
+        console.error('Google Sign-in Error:', error);
+        this.setState({ error: error.message });
+      });
+  }
+
+  handleFacebookSignIn = () => {
+    signInWithPopup(auth, facebookProvider)
+      .then((result) => {
+        // Handle Facebook sign-in success
+        const user = result.user;
+        console.log('Facebook Sign-in Successful:', user);
+        this.setState({ isAuthenticated: true });
+      })
+      .catch((error) => {
+        // Handle Facebook sign-in error
+        console.error('Facebook Sign-in Error:', error);
+        this.setState({ error: error.message });
+      });
+  }
+
   handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
 
     const { email, password } = this.state;
 
     try {
-      const userCredential = signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log('User logged in:', userCredential);
-      // Redirect user to a protected dashboard or profile page (replace with your logic)
-      //this.props.history.push('/home-v1'); // Using react-router-dom for navigation
-      this.setState({ email: '', password: '', error: null }); // Clear form after successful login
+      this.setState({ isAuthenticated: true });
+      // Clear form after successful login
+      this.setState({ email: '', password: '', error: null });
     } catch (error) {
       console.error('Error logging in:', error);
-      this.setState({ error: error.message }); // Set specific error message for user feedback
+      // Set specific error message for user feedback
+      this.setState({ error: error.message });
     }
   }
 
@@ -54,9 +90,7 @@ class Login extends Component {
 
     try {
       await sendPasswordResetEmail(auth, resetEmail);
-      // Password reset email sent successfully
       console.log('Password reset email sent to:', resetEmail);
-      // Add your logic to display a success message or redirect the user
       this.setState({ resetEmail: '', error: null });
     } catch (error) {
       console.error('Error sending password reset email:', error);
@@ -69,7 +103,11 @@ class Login extends Component {
   }
 
   render() {
-    const { email, password, resetEmail, error } = this.state;
+    const { email, password, resetEmail, error, isAuthenticated } = this.state;
+
+    if (isAuthenticated) {
+      return <Redirect to="/" />;
+    }
 
     return (
       <div>
@@ -85,10 +123,11 @@ class Login extends Component {
                     <div className="btn-wrapper mt-0">
                       <button className="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
                     </div>
+                    </form>
                     <div className="go-to-btn mt-20">
                       <a href="#" title="Forgot Password?" data-bs-toggle="modal" data-bs-target="#ltn_forget_password_modal"><small>FORGOTTEN YOUR PASSWORD?</small></a>
                     </div>
-                  </form>
+                  
                 </div>
               </div>
               <div className="col-lg-6">
@@ -98,6 +137,18 @@ class Login extends Component {
                   <div className="btn-wrapper go-top">
                     <Link to="/register" className="theme-btn-1 btn black-btn">CREATE ACCOUNT</Link>
                   </div>
+                </div>
+                {/* Google Sign-In Button */}
+                <div className="btn-wrapper go-top">
+                  <button onClick={this.handleGoogleSignIn} className="theme-btn-1 btn black-btn">
+                    Sign in with Google
+                  </button>
+                </div>
+                {/* Facebook Sign-In Button */}
+                <div className="btn-wrapper go-top">
+                  <button onClick={this.handleFacebookSignIn} className="theme-btn-1 btn black-btn">
+                    Sign in with Facebook
+                  </button>
                 </div>
               </div>
             </div>

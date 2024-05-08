@@ -1,11 +1,68 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
+import { getAuth, signOut ,sendPasswordResetEmail } from 'firebase/auth';
+import { initializeApp } from "firebase/app";
+
+// Firebase configuration
+const firebaseConfig = {
+	apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
+	authDomain: "askundb.firebaseapp.com",
+	projectId: "askundb",
+	storageBucket: "askundb.appspot.com",
+	messagingSenderId: "873898080051",
+	appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+  };
+
+
+// Initialize Firebase app
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth();
 
 class MyAccount extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			resetEmail:'' ,
+		  isAuthenticated: false // Initialize isAuthenticated to false
+		};
+	}
 
+	handleSignOut = () => {
+    // Call Firebase signOut method to log out the user
+    signOut(auth)
+      .then(() => {
+        console.log('User signed out successfully');
+		this.setState({isAuthenticated : true})
+        // Redirect or update state to indicate logout
+      })
+      .catch((error) => {
+        console.error('Error signing out:', error);
+        // Handle sign-out error
+      });
+  };
+
+  handleResetPassword = async (e) => {
+    e.preventDefault();
+
+    const { resetEmail } = this.state;
+
+    try {
+      await sendPasswordResetEmail(auth, resetEmail);
+      console.log('Password reset email sent to:', resetEmail);
+      this.setState({ resetEmail: '', error: null });
+    } catch (error) {
+      console.error('Error sending password reset email:', error);
+      this.setState({ error: error.message });
+    }
+  }
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
     render() {
-
+		const { resetEmail, error, isAuthenticated } = this.state;
         let publicUrl = process.env.PUBLIC_URL+'/'
 
     return <div className="liton__wishlist-area pb-70">
@@ -28,7 +85,7 @@ class MyAccount extends Component {
 						<a data-bs-toggle="tab" href="#ltn_tab_1_7">Add Property <i className="fa-solid fa-map-location-dot" /></a>
 						<a data-bs-toggle="tab" href="#ltn_tab_1_8">Payments <i className="fa-solid fa-money-check-dollar" /></a>
 						<a data-bs-toggle="tab" href="#ltn_tab_1_9">Change Password <i className="fa-solid fa-lock" /></a>
-						<a href="login.html">Logout <i className="fas fa-sign-out-alt" /></a>
+						<button onClick={this.handleSignOut}>Logout <i className="fas fa-sign-out-alt" /></button>
 					  </div>
 					</div>
 				  </div>
@@ -1069,15 +1126,14 @@ class MyAccount extends Component {
 					  <div className="tab-pane fade" id="ltn_tab_1_9">
 						<div className="ltn__myaccount-tab-content-inner">
 						  <div className="account-login-inner">
-							<form action="#" className="ltn__form-box contact-form-box">
-							  <h5 className="mb-30">Change Password</h5>
-							  <input type="password" name="password" placeholder="Current Password*" />
-							  <input type="password" name="password" placeholder="New Password*" />
-							  <input type="password" name="password" placeholder="Confirm New Password*" />
-							  <div className="btn-wrapper mt-0">
-								<button className="theme-btn-1 btn btn-block" type="submit">Save Changes</button>
-							  </div>
-							</form>
+						  {error && <div className="alert alert-danger" role="alert">{error}</div>}
+						  <p className="added-cart">Enter your registered email to reset your password.</p>
+                            <form onSubmit={this.handleResetPassword} className="ltn__form-box contact-form-box">
+                              <input type="text" name="resetEmail" placeholder="Type your registered email*" value={resetEmail} onChange={this.handleChange} />
+                              <div className="btn-wrapper mt-0">
+                                <button className="theme-btn-1 btn btn-full-width-2" type="submit">Submit</button>
+                              </div>
+                            </form>
 						  </div>
 						</div>
 					  </div>

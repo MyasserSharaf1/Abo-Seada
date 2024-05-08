@@ -49,8 +49,8 @@ class Root extends Component {
                 <HashRouter basename="/">
 	                <div>
 	                <Switch>
-	                    <Route exact path="/home-v1" component={HomeV1} />
-                        <Route path="/shop-details/:id" component={ShopDetails} />
+	                    <Route exact path="/" component={HomeV1} />
+                        <Route path="/shop-details/:property" component={ShopDetails} />
                    
 
                         <Route path="/about" component={About} />
@@ -61,7 +61,7 @@ class Root extends Component {
                         <Route path="/portfolio-v2" component={ PortfolioV2 } />
                         <Route path="/portfolio-details" component={ PortfolioDetails } />
                         <Route path="/team" component={ Team } />
-                        <Route path="/team-details" component={ TeamDetails } />
+                        <Route path="/team-details/:property" component={ TeamDetails } />
                         <Route path="/faq" component={ Faq } />
                         <Route path="/coming-soon" component={ ComingSoon } />
                         <Route path="/404" component={ Error } />

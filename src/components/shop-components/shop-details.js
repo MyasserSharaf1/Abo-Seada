@@ -1,70 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 function ShopDetails() {
-  const { id } = useParams(); // Get the 'id' parameter from the URL
-  const [foundProperty, setFoundProperty] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://bayut.p.rapidapi.com/properties/list', {
-          params: {
-            locationExternalIDs: '5002,6020',
-            purpose: 'for-rent',
-            hitsPerPage: '25',
-            page: '2',
-            lang: 'en',
-            sort: 'city-level-score',
-            rentFrequency: 'monthly',
-            categoryExternalID: '4',
-            hasVideo: 'true',
-          },
-          headers: {
-            'X-RapidAPI-Key': '32fd3a9dfamsh549f8b0fd7b9faap1bee35jsn86948ade3195',
-            'X-RapidAPI-Host': 'bayut.p.rapidapi.com',
-          },
-        });
-
-        const property = response.data.hits.find(prop => prop.id === id);
-        if (property) {
-          setFoundProperty(property);
-        } else {
-          setError(new Error('Property not found'));
-        }
-
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching property details:', error);
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [id]); // Include 'id' in the dependency array to refetch data when 'id' changes
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!foundProperty) {
-    return <div>Property not found.</div>;
-  }
+  const location = useLocation();
+  const { propertyData } = location.state;
 
   return (
-    <div className="shop-details-container">
-      {/* Display property details */}
-      <h2>{foundProperty.title}</h2>
-      {/* Add more details as needed */}
-    </div>
+    <div className="ltn__shop-details-area pb-10">
+    <div className="container">
+    <div className="row">
+      <div className="col-lg-8 col-md-12">
+      <div className="ltn__shop-details-inner ltn__page-details-inner mb-60">
+      <div className="ltn__blog-meta">
+      <div className="ltn__property-details-gallery mb-30">
+						<div className="row">
+							<div className="col-md-6">
+							<a data-rel="lightcase:myCollection">
+								<img className="mb-30" src={propertyData.coverPhoto?.url} alt="Image" />
+							</a>
+							</div>
+						</div>
+						</div>
+      <label><span className="ltn__secondary-color"><i className="flaticon-pin" /></span> Belmont Gardens, Chicago</label>
+						<h4 className="title-2">Description</h4>
+						<p>{propertyData.Description}</p>
+            <div className="property-detail-info-list section-bg-1 clearfix mb-60">                          
+						<ul>
+							<li><label>Property ID:</label> <span>{propertyData.id}</span></li>
+							<li><label>Home Area: </label> <span>{propertyData.area}</span></li>
+							<li><label>Rooms:</label> <span>{propertyData.rooms}</span></li>
+							<li><label>Baths:</label> <span>{propertyData.baths}</span></li>
+              <li><label>Property Status:</label> <span>{propertyData.purpose}</span></li>
+							<li><label>Year built:</label> <span>{propertyData.agency?.createdAt}</span></li>
+              <li><label>Price:</label><span>{propertyData.price}<label>USD</label></span></li>
+
+						</ul>
+            </div>
+            <h4 className="title-2 mb-10">Amenities</h4>
+						<div className="property-details-amenities mb-60">
+						<div className="row">
+							<div className="col-lg-4 col-md-6">
+							<div className="ltn__menu-widget">
+              <ul>
+                        {propertyData.amenities?.map((amenity, index) => (
+                          <li key={index}>
+                            <label className="checkbox-item">{amenity}</label>
+                          </li>
+                        ))}
+                      </ul>
+							</div>
+							</div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
   );
 }
 
