@@ -35,6 +35,7 @@ function ShopDetails() {
               <li><label>Price:</label><span>{propertyData.price}<label>USD</label></span></li>
 
 						</ul>
+            
             </div>
             <h4 className="title-2 mb-10">Amenities</h4>
 						<div className="property-details-amenities mb-60">
