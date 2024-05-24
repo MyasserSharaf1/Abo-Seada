@@ -161,6 +161,12 @@ class Navbar extends Component {
                                 <Link to="/shop">Shop</Link>
                               </li>
                               <li>
+                                <Link to="/Rent-Shop">Rent Shop</Link>
+                              </li>
+                              <li>
+                                <Link to="/Sale-Shop"> sale Shop</Link>
+                              </li>
+                              <li>
                                 <Link to="/shop-grid">Shop Grid</Link>
                               </li>
 
@@ -256,6 +262,13 @@ class Navbar extends Component {
                                   <li>
                                     <Link to="/shop">Shop</Link>
                                   </li>
+
+                                  <li>
+                                <Link to="/Rent-Shop">Rent Shop</Link>
+                              </li>
+                              <li>
+                                <Link to="/Sale-Shop"> sale Shop</Link>
+                              </li>
 
                                   <li>
                                     <Link to="/shop-grid">Shop Grid</Link>

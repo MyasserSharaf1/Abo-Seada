@@ -1,17 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ShopGridV1 from './components/shop-components/shop-grid-v1';
-import ShopDetails from './components/shop-components/shop-details';
+import ThreeSixtyViewer from './components/shop-components/ThreeSixtyViewer';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ShopGridV1 />} />
-        <Route path="/shop-details/:id" element={<ShopDetails />} />
-        
-      </Routes>
-    </BrowserRouter>
+    <ThreeSixtyViewer />
   );
 }
 

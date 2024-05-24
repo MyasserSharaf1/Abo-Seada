@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import ThreeSixtyViewer from './ThreeSixtyViewer'; // Correct import path
 
 function ShopDetails() {
   const location = useLocation();
@@ -17,6 +18,10 @@ function ShopDetails() {
 							<div className="col-md-6">
 							<a data-rel="lightcase:myCollection">
 								<img className="mb-30" src={propertyData.coverPhoto?.url} alt="Image" />
+							</a>
+              <a data-rel="lightcase:myCollection">
+							<h4 className="title-2">360° View</h4>
+                  <ThreeSixtyViewer imagePath={propertyData.coverPhoto?.url} />
 							</a>
 							</div>
 						</div>

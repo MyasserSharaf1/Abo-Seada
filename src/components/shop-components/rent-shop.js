@@ -6,12 +6,12 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, collection, getDocs, addDoc, doc, getDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-	apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
-	authDomain: "askundb.firebaseapp.com",
-	projectId: "askundb",
-	storageBucket: "askundb.appspot.com",
-	messagingSenderId: "873898080051",
-	appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+  apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
+  authDomain: "askundb.firebaseapp.com",
+  projectId: "askundb",
+  storageBucket: "askundb.appspot.com",
+  messagingSenderId: "873898080051",
+  appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -53,8 +53,9 @@ function ShopGridV1() {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
     setFilteredProperties(properties.filter(property =>
-      (property.title && property.title.toLowerCase().includes(query)) ||
-      (property.title_l1 && property.title_l1.toLowerCase().includes(query))
+      ((property.title && property.title.toLowerCase().includes(query)) ||
+      (property.title_l1 && property.title_l1.toLowerCase().includes(query))) &&
+      property.purpose === "for-rent"
     ));
   };
 
@@ -134,25 +135,28 @@ function ShopGridV1() {
                               <div className="ltn__product-tab-content-inner ltn__product-grid-view">
                                 <div className="row">
                                   {filteredProperties.map((property) => (
+                                    property.purpose === "for-rent" && (
                                     <div className="col-lg-4 col-sm-6 col-12" key={property.id}>
                                       <div className="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
                                         <div className="product-img">
-                                        <Link
-          to={{
-            pathname: `/shop-details/${property}`,
-            state: { propertyData: property }
-          }}
-        >
-                          <img src={property.coverPhoto?.url} alt={property.coverPhoto?.title} />
-                        </Link>
+                                          <Link
+                                            to={{
+                                              pathname: `/shop-details/${property.id}`,
+                                              state: { propertyData: property }
+                                            }}
+                                          >
+                                            <img src={property.coverPhoto?.url} alt={property.coverPhoto?.title} />
+                                          </Link>
                                           <div className="real-estate-agent">
                                             <div className="agent-img">
                                               <Link
                                                 to={{
-                                                  pathname: `/team-details/${property}`,
+                                                  pathname: `/team-details/${property.ownerAgent?.id}`,
                                                   state: { propertyData: property }
                                                 }}
-                                              ><img src={property.ownerAgent?.user_image} alt="#" /></Link>
+                                              >
+                                                <img src={property.ownerAgent?.user_image} alt="#" />
+                                              </Link>
                                             </div>
                                           </div>
                                         </div>
@@ -200,7 +204,7 @@ function ShopGridV1() {
                                         </div>
                                       </div>
                                     </div>
-                                  ))}
+                                  )))}
                                 </div>
                               </div>
                             </div>
@@ -229,6 +233,7 @@ function ShopGridV1() {
                         </div>
                       </div>
                       {filteredProperties.map((property) => (
+                        property.purpose === "for-rent" && (
                         <div className="col-lg-12" key={property.id}>
                           <div className="ltn__product-item ltn__product-item-4 ltn__product-item-5">
                             <div className="product-img">
@@ -280,7 +285,7 @@ function ShopGridV1() {
                             </div>
                           </div>
                         </div>
-                      ))}
+                      )))}
                     </div>
                   </div>
                 </div>

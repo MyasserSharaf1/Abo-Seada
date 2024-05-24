@@ -1,5 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { initializeApp } from "firebase/app"; // Import the entire Firebase library
+
+import {
+  getFirestore, collection,getDocs, onSnapshot,
+  addDoc, deleteDoc, doc,
+  query, where,
+  orderBy, serverTimestamp,
+  updateDoc
+} from 'firebase/firestore'
+
+const firebaseConfig = {
+	apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
+	authDomain: "askundb.firebaseapp.com",
+	projectId: "askundb",
+	storageBucket: "askundb.appspot.com",
+	messagingSenderId: "873898080051",
+	appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+  };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const agenciesCollection = collection(db,'Agencies');
 
 function TeamV2() {
   const [agencies, setAgencies] = useState([]);
@@ -12,16 +33,21 @@ function TeamV2() {
         const response = await axios.get('https://bayut.p.rapidapi.com/agencies/list', {
           params: {
             query: 'patriot',
-            hitsPerPage: '1',
+            hitsPerPage: '3',
             page: '0',
             lang: 'en'
           },
           headers: {
-            'X-RapidAPI-Key': '32fd3a9dfamsh549f8b0fd7b9faap1bee35jsn86948ade3195',
-            'X-RapidAPI-Host': 'bayut.p.rapidapi.com'
+            'x-rapidapi-key': 'f31e55296amsh94fc4e70252beffp1bd829jsnd2b635d70ef3',
+            'x-rapidapi-host': 'bayut.p.rapidapi.com'
           }
         });
+
+        
         setAgencies(response.data.hits);
+        agencies.forEach(async (agency) => {
+          await addDoc(agenciesCollection, agency); 
+        });
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);

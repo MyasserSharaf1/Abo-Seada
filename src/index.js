@@ -18,6 +18,8 @@ import Error  from './components/404';
 import Location  from './components/location';
 
 import Shop from './components/shop';
+import RentShop from './components/Rent-Shop';
+import SaleShop from './components/Sale-Shop';
 import ShopGrid from './components/shop-grid';
 import ProdductDetails from './components/product-details';
 import ShopLeftSidebar from './components/shop-left-sidebar';
@@ -51,6 +53,8 @@ class Root extends Component {
 	                <Switch>
 	                    <Route exact path="/" component={HomeV1} />
                         <Route path="/shop-details/:property" component={ShopDetails} />
+                      
+
                    
 
                         <Route path="/about" component={About} />
@@ -67,6 +71,8 @@ class Root extends Component {
                         <Route path="/404" component={ Error } />
                         <Route path="/location" component={ Location } />
                         <Route path="/shop" component={ Shop } />
+                        <Route path="/Rent-Shop" component={ RentShop } />
+                        <Route path="/Sale-Shop" component={ SaleShop } />
                         <Route path="/shop-grid" component={ ShopGrid } />
                         <Route path="/shop-left-sidebar" component={ ShopLeftSidebar } />
                         <Route path="/shop-right-sidebar" component={ ShopRightSidebar } />
