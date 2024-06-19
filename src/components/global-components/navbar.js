@@ -220,6 +220,12 @@ class Navbar extends Component {
                                       Portfolio Details
                                     </Link>
                                   </li>
+
+                                  <li>
+                                    <Link to="/ChatGemini">
+                                      Chat assistant
+                                    </Link>
+                                  </li>
                                   <li>
                                     <Link to="/team">Team</Link>
                                   </li>

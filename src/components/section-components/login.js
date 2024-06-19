@@ -1,28 +1,33 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, OAuthProvider } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 // Firebase configuration
 const firebaseConfig = {
-	apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
-	authDomain: "askundb.firebaseapp.com",
-	projectId: "askundb",
-	storageBucket: "askundb.appspot.com",
-	messagingSenderId: "873898080051",
-	appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
-  };
-
+  apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
+  authDomain: "askundb.firebaseapp.com",
+  projectId: "askundb",
+  storageBucket: "askundb.appspot.com",
+  messagingSenderId: "873898080051",
+  appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+};
 
 // Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 
-// Get auth instance
-const auth = getAuth();
+// Get auth instance and Firestore instance
+const auth = getAuth(app);
+const db = getFirestore(app);
 auth.languageCode = 'en';
 const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 const facebookProvider = new FacebookAuthProvider();
-
+//facebookProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+const appleProvider = new OAuthProvider('apple.com');
+appleProvider.addScope('email');
+appleProvider.addScope('name');
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -38,31 +43,55 @@ class Login extends Component {
   handleGoogleSignIn = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
-        // Handle Google sign-in success
-        const user = result.user;
-        console.log('Google Sign-in Successful:', user);
-        this.setState({ isAuthenticated: true });
+        this.handleSignInSuccess(result.user);
       })
       .catch((error) => {
-        // Handle Google sign-in error
-        console.error('Google Sign-in Error:', error);
-        this.setState({ error: error.message });
+        this.handleSignInError(error);
       });
   }
 
   handleFacebookSignIn = () => {
     signInWithPopup(auth, facebookProvider)
       .then((result) => {
-        // Handle Facebook sign-in success
-        const user = result.user;
-        console.log('Facebook Sign-in Successful:', user);
-        this.setState({ isAuthenticated: true });
+        this.handleSignInSuccess(result.user);
       })
       .catch((error) => {
-        // Handle Facebook sign-in error
-        console.error('Facebook Sign-in Error:', error);
-        this.setState({ error: error.message });
+        this.handleSignInError(error);
       });
+  }
+
+  handleAppleSignIn = () => {
+    signInWithPopup(auth, appleProvider)
+      .then((result) => {
+        this.handleSignInSuccess(result.user);
+      })
+      .catch((error) => {
+        this.handleSignInError(error);
+      });
+  }
+
+  handleSignInSuccess = async (user) => {
+    console.log('Sign-in Successful:', user);
+    this.setState({ isAuthenticated: true });
+
+    // Check if the user exists in the 'User' collection
+    const userRef = doc(db, 'User', user.uid);
+    const userDoc = await getDoc(userRef);
+
+    if (!userDoc.exists()) {
+      // Create a new user document
+      await setDoc(userRef, {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL
+      });
+    }
+  }
+
+  handleSignInError = (error) => {
+    console.error('Sign-in Error:', error);
+    this.setState({ error: error.message });
   }
 
   handleSubmit = async (e) => {
@@ -72,14 +101,9 @@ class Login extends Component {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('User logged in:', userCredential);
-      this.setState({ isAuthenticated: true });
-      // Clear form after successful login
-      this.setState({ email: '', password: '', error: null });
+      this.handleSignInSuccess(userCredential.user);
     } catch (error) {
-      console.error('Error logging in:', error);
-      // Set specific error message for user feedback
-      this.setState({ error: error.message });
+      this.handleSignInError(error);
     }
   }
 
@@ -93,8 +117,7 @@ class Login extends Component {
       console.log('Password reset email sent to:', resetEmail);
       this.setState({ resetEmail: '', error: null });
     } catch (error) {
-      console.error('Error sending password reset email:', error);
-      this.setState({ error: error.message });
+      this.handleSignInError(error);
     }
   }
 
@@ -123,11 +146,10 @@ class Login extends Component {
                     <div className="btn-wrapper mt-0">
                       <button className="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
                     </div>
-                    </form>
-                    <div className="go-to-btn mt-20">
-                      <a href="#" title="Forgot Password?" data-bs-toggle="modal" data-bs-target="#ltn_forget_password_modal"><small>FORGOTTEN YOUR PASSWORD?</small></a>
-                    </div>
-                  
+                  </form>
+                  <div className="go-to-btn mt-20">
+                    <a href="#" title="Forgot Password?" data-bs-toggle="modal" data-bs-target="#ltn_forget_password_modal"><small>FORGOTTEN YOUR PASSWORD?</small></a>
+                  </div>
                 </div>
               </div>
               <div className="col-lg-6">
@@ -148,6 +170,12 @@ class Login extends Component {
                 <div className="btn-wrapper go-top">
                   <button onClick={this.handleFacebookSignIn} className="theme-btn-1 btn black-btn">
                     Sign in with Facebook
+                  </button>
+                </div>
+                {/* Apple Sign-In Button */}
+                <div className="btn-wrapper go-top">
+                  <button onClick={this.handleAppleSignIn} className="theme-btn-1 btn black-btn">
+                    Sign in with Apple
                   </button>
                 </div>
               </div>

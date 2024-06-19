@@ -1,72 +1,93 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import parse from 'html-react-parser';
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
+  authDomain: "askundb.firebaseapp.com",
+  projectId: "askundb",
+  storageBucket: "askundb.appspot.com",
+  messagingSenderId: "873898080051",
+  appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 class AboutV2 extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      latestProperty: null,
+      isLoading: true,
+      error: null,
+    };
+  }
 
-    render() {
+  async componentDidMount() {
+    try {
+      const q = query(collection(db, 'PurchasedProperties'), orderBy('createdAt', 'desc'), limit(1));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        const latestProperty = querySnapshot.docs[0].data();
+        this.setState({ latestProperty, isLoading: false });
+      } else {
+        this.setState({ isLoading: false });
+      }
+    } catch (error) {
+      console.error('Error fetching latest property:', error);
+      this.setState({ error, isLoading: false });
+    }
+  }
 
-        let publicUrl = process.env.PUBLIC_URL+'/'
+  render() {
+    const { latestProperty, isLoading, error } = this.state;
 
-    return <div className="ltn__about-us-area pt-120 pb-90 ">
-			  <div className="container">
-			    <div className="row">
-			      <div className="col-lg-6 align-self-center">
-			        <div className="about-us-info-wrap">
-			          <div className="section-title-area ltn__section-title-2--- mb-30">
-			            <h6 className="section-subtitle section-subtitle-2 ltn__secondary-color">About Us</h6>
-			            <h1 className="section-title">Today Sells Properties</h1>
-			            <p>Houzez allow you to design unlimited panels and real estate custom
-			              forms to capture leads and keep record of all information</p>
-			          </div>
-			          <ul className="ltn__list-item-1 ltn__list-item-1-before clearfix">
-			            <li> Live Music Cocerts at Luviana</li>
-			            <li>Our SecretIsland Boat Tour is Just for You</li>
-			            <li>Live Music Cocerts at Luviana</li>
-			            <li>Live Music Cocerts at Luviana</li>
-			          </ul>
-			          <ul className="ltn__list-item-2 ltn__list-item-2-before ltn__flat-info">
-			            <li><span>3 <i className="flaticon-bed" /></span>
-			              Bedrooms
-			            </li>
-			            <li><span>2 <i className="flaticon-clean" /></span>
-			              Bathrooms
-			            </li>
-			            <li><span>2 <i className="flaticon-car" /></span>
-			              Car parking
-			            </li>
-			            <li><span>3450 <i className="flaticon-square-shape-design-interface-tool-symbol" /></span>
-			              square Ft
-			            </li>
-			          </ul>
-			          <ul className="ltn__list-item-2 ltn__list-item-2-before--- ltn__list-item-2-img mb-50">
-			            <li>
-			              <a href={publicUrl+"assets/img/img-slide/11.jpg"} data-rel="lightcase:myCollection">
-			                <img src={publicUrl+"assets/img/img-slide/11.jpg"} alt="Image" />
-			              </a>
-			            </li>
-			            <li>
-			              <a href={publicUrl+"assets/img/img-slide/12.jpg"} data-rel="lightcase:myCollection">
-			                <img src={publicUrl+"assets/img/img-slide/12.jpg"} alt="Image" />
-			              </a>
-			            </li>
-			            <li>
-			              <a href={publicUrl+"assets/img/img-slide/13.jpg"} data-rel="lightcase:myCollection">
-			                <img src={publicUrl+"assets/img/img-slide/13.jpg"} alt="Image" />
-			              </a>
-			            </li>
-			          </ul>
-			        </div>
-			      </div>
-			      <div className="col-lg-6 align-self-center">
-			        <div className="about-us-img-wrap about-img-right">
-			          <img src={publicUrl+"assets/img/others/9.png"} alt="About Us Image" />
-			        </div>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-        }
+    return (
+      <div className="ltn__about-us-area pt-120 pb-90 ">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6 align-self-center">
+              <div className="about-us-info-wrap">
+                <div className="section-title-area ltn__section-title-2--- mb-30">
+                  <h6 className="section-subtitle section-subtitle-2 ltn__secondary-color"></h6>
+                  <h1 className="section-title">Latest Sold Properties</h1>
+                </div>
+                {isLoading ? (
+                  <p>Loading latest purchased property...</p>
+                ) : error ? (
+                  <p>Error fetching latest property: {error.message}</p>
+                ) : latestProperty ? (
+                  <div>
+                    <h2>Latest Purchased Property</h2>
+                    <ul className="ltn__list-item-2 ltn__list-item-2-before ltn__flat-info">
+                      <li><span>{latestProperty.rooms} <i className="flaticon-bed" /></span> Bedrooms</li>
+                      <li><span>{latestProperty.baths} <i className="flaticon-clean" /></span> Bathrooms</li>
+                      <li><span>{latestProperty.carParking} <i className="flaticon-car" /></span> Car parking</li>
+                      <li><span>{latestProperty.area} <i className="flaticon-square-shape-design-interface-tool-symbol" /></span> square Ft</li>
+                    </ul>
+                    <p>{latestProperty.description}</p>
+                  </div>
+                ) : (
+                  <p>No purchased properties available.</p>
+                )}
+              </div>
+            </div>
+            <div className="col-lg-6 align-self-center">
+              <div className="about-us-img-wrap about-img-right">
+                {latestProperty && latestProperty.coverPhoto && latestProperty.coverPhoto.url ? (
+                  <img src={latestProperty.coverPhoto.url} alt={latestProperty.coverPhoto.title} />
+                ) : (
+                  <p>No cover photo available.</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default AboutV2
+export default AboutV2;

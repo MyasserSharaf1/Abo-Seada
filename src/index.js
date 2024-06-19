@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, HashRouter, Route, Switch } from "react-router-dom";
 import HomeV1 from './components/home-v1';
 
+import Chatgem from './components/ChatGemini';
+
 
 import About from './components/about';
 import Service from './components/service';
@@ -55,7 +57,7 @@ class Root extends Component {
                         <Route path="/shop-details/:property" component={ShopDetails} />
                       
 
-                   
+                        <Route path="/ChatGemini" component={Chatgem} />
 
                         <Route path="/about" component={About} />
                         <Route path="/service" component={Service} />

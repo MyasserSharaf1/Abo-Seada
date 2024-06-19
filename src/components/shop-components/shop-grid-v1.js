@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-//import parse from 'html-react-parser';
-import { initializeApp } from "firebase/app"; // Import the entire Firebase library
+import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
-import {
-  getFirestore, collection, getDocs,
-  addDoc, doc,
-   getDoc
-} from 'firebase/firestore'
+import { getFirestore, collection, getDocs, addDoc, doc, getDoc, setDoc ,Timestamp} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
@@ -18,6 +12,7 @@ const firebaseConfig = {
   messagingSenderId: "873898080051",
   appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const colRef = collection(db, 'Properties');
@@ -29,12 +24,11 @@ function ShopGridV1() {
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const snapshot = await getDocs(colRef);
-        const propertyData = snapshot.docs.map(doc => doc.data());
+        const propertyData = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
         setProperties(propertyData);
         setIsLoading(false);
       } catch (error) {
@@ -53,7 +47,7 @@ function ShopGridV1() {
 
   const addToWishlist = async (property) => {
     const currentUser = auth.currentUser;
-    
+  
     if (!currentUser) {
       console.warn('User is not signed in. Please sign in to add to wishlist.');
       // Implement sign-in logic here (e.g., redirect to sign-in page)
@@ -62,25 +56,28 @@ function ShopGridV1() {
   
     const uid = currentUser.uid;
     console.log(uid);
+  
     try {
       const userRef = doc(db, 'User', uid);
       const userDoc = await getDoc(userRef);
   
-      if (userDoc.exists()) {
-        const wishlistRef = collection(userRef, 'Wishlist');
-        await addDoc(wishlistRef, property);
-        alert('Property added to wishlist successfully!');
-      } else {
-        console.warn('User document does not exist. Please sign in to add to wishlist.');
-        // Optionally, you can redirect the user to the sign-in page here
-        // or display a modal asking them to sign in.
+      if (!userDoc.exists()) {
+        // Create the user document if it doesn't exist
+        await setDoc(userRef, {});
       }
+  
+      const wishlistRef = collection(userRef, 'Wishlist');
+      const propertyWithTimestamp = {
+        ...property,
+        addedAt: Timestamp.now()
+      };
+      await addDoc(wishlistRef, propertyWithTimestamp);
+      alert('Property added to wishlist successfully!');
     } catch (error) {
       console.error('Error adding property to wishlist:', error);
       alert('Failed to add property to wishlist. Please try again later.');
     }
   };
-  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -101,33 +98,49 @@ function ShopGridV1() {
                   <div className="col-lg-4 col-sm-6 col-12" key={property.id}>
                     <div className="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
                       <div className="product-img">
-                      <Link
-          to={{
-            pathname: `/shop-details/${property}`,
-            state: { propertyData: property }
-          }}
-        >
+                        <Link
+                          to={{
+                            pathname: `/shop-details/${property.id}`,
+                            state: { propertyData: property, documentId: property.id }
+                          }}
+                        >
                           <img src={property.coverPhoto?.url} alt={property.coverPhoto?.title} />
                         </Link>
-<div className="real-estate-agent">
-          <div className="agent-img">
-          <Link
-          to={{
-            pathname: `/team-details/${property}`,
-            state: { propertyData: property }
-          }}
-        ><img src={property.ownerAgent?.user_image} alt="#" /></Link>
-          </div>
-        </div>
+                        <div className="real-estate-agent">
+                          <div className="agent-img">
+                            <Link
+                              to={{
+                                pathname: `/team-details/${property.ownerAgent?.id}`,
+                                state: { propertyData: property }
+                              }}
+                            >
+                              <img src={property.ownerAgent?.user_image} alt="#" />
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                       <div className="product-info">
                         <div className="product-badge">
                           <ul>
-                            <li className="sale-badg">{property.purpose}</li>
+                            <li className="sale-badge">{property.purpose}</li>
                           </ul>
                         </div>
-                        <h2 className="product-title go-top"><Link >{property.title}</Link></h2>
-                        <h2 className="product-title go-top"><Link >{property.title_l1}</Link></h2>
+                        <h2 className="product-title go-top">
+                        <Link
+                          to={{
+                            pathname: `/shop-details/${property.id}`,
+                            state: { propertyData: property, documentId: property.id }
+                          }}
+                        >{property.title}</Link>
+                        </h2>
+                        <h2 className="product-title go-top">
+                        <Link
+                          to={{
+                            pathname: `/shop-details/${property.id}`,
+                            state: { propertyData: property, documentId: property.id }
+                          }}
+                        >{property.title_l1}</Link>
+                        </h2>
                         <div className="product-img-location">
                           <ul>
                             <li className="go-top">
@@ -136,9 +149,9 @@ function ShopGridV1() {
                           </ul>
                         </div>
                         <ul className="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
-                          <li><span>{property.rooms} </span> Bedrooms</li>
-                          <li><span>{property.baths} </span> Bathrooms</li>
-                          <li><span>{property.area} </span> square Ft</li>
+                          <li><span>{property.rooms}</span> Bedrooms</li>
+                          <li><span>{property.baths}</span> Bathrooms</li>
+                          <li><span>{property.area}</span> square Ft</li>
                         </ul>
                         <div className="product-hover-action">
                           <ul>
@@ -152,7 +165,7 @@ function ShopGridV1() {
                                 <Link
                                   to={{
                                     pathname: `/shop-details/${property.id}`,
-                                    state: { propertyData: property }
+                                    state: { propertyData: property, documentId: property.id }
                                   }}
                                 >
                                   <i className="flaticon-add" />
@@ -164,7 +177,10 @@ function ShopGridV1() {
                       </div>
                       <div className="product-info-bottom">
                         <div className="product-price">
-                          <span>{property.price}<label>/Month</label></span>
+                          <span>
+                            {property.price}
+                            {property.purpose === 'for-rent' && <label>/Month</label>}
+                          </span>
                         </div>
                       </div>
                     </div>

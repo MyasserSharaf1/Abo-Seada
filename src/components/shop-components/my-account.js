@@ -80,7 +80,7 @@ class MyAccount extends Component {
 						<a data-bs-toggle="tab" href="#ltn_tab_1_2">Profiles <i className="fas fa-user" /></a>
 						<a data-bs-toggle="tab" href="#ltn_tab_1_3">address <i className="fas fa-map-marker-alt" /></a>
 						<a data-bs-toggle="tab" href="#ltn_tab_1_4">Account Details <i className="fas fa-user" /></a>
-						<a data-bs-toggle="tab" href="#ltn_tab_1_5">My Properties <i className="fa-solid fa-list" /></a>
+						<a data-bs-toggle="tab" href="#ltn_tab_1_5">My Wish List <i className="fa-solid fa-list" /></a>
 						<a data-bs-toggle="tab" href="#ltn_tab_1_6">Favorited Properties <i className="fa-solid fa-heart" /></a>
 						<a data-bs-toggle="tab" href="#ltn_tab_1_7">Add Property <i className="fa-solid fa-map-location-dot" /></a>
 						<a data-bs-toggle="tab" href="#ltn_tab_1_8">Payments <i className="fa-solid fa-money-check-dollar" /></a>
@@ -261,7 +261,7 @@ class MyAccount extends Component {
 								  <th scope="col">My Properties</th>
 								  <th scope="col" />
 								  <th scope="col">Date Added</th>
-								  <th scope="col">Actions</th>
+								  {/*<th scope="col">Actions</th>*/}
 								  <th scope="col">Delete</th>
 								</tr>
 							  </thead>
@@ -287,7 +287,7 @@ class MyAccount extends Component {
 									</div>
 								  </td>
 								  <td>Feb 22, 2022</td>
-								  <td><Link to="#">Edit</Link></td>
+								 {/* <td><Link to="#">Edit</Link></td>*/}
 								  <td><Link tp="#"><i className="fa-solid fa-trash-can" /></Link></td>
 								</tr>
 							  </tbody>

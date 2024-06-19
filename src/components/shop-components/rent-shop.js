@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Sidebar from './shop-sidebar';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, getDocs, addDoc, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, addDoc, doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
@@ -27,27 +27,29 @@ function ShopGridV1() {
   const [currentUser, setCurrentUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const snapshot = await getDocs(colRef);
-        const propertyData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setProperties(propertyData);
-        setFilteredProperties(propertyData);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-
-    onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
-  }, []);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const snapshot = await getDocs(colRef);
+          const propertyData = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+          const saleProperties = propertyData.filter(property => property.purpose === "for-rent");
+          setProperties(saleProperties);
+          setFilteredProperties(saleProperties);
+          setIsLoading(false);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          setError(error);
+          setIsLoading(false);
+        }
+      };
+  
+      fetchData();
+  
+      onAuthStateChanged(auth, (user) => {
+        setCurrentUser(user);
+      });
+    }, []);
+  
 
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
@@ -60,30 +62,38 @@ function ShopGridV1() {
   };
 
   const addToWishlist = async (property) => {
+    const currentUser = auth.currentUser;
+  
     if (!currentUser) {
       console.warn('User is not signed in. Please sign in to add to wishlist.');
       // Implement sign-in logic here (e.g., redirect to sign-in page)
       return;
     }
-
+  
     const uid = currentUser.uid;
+    console.log(uid);
+  
     try {
       const userRef = doc(db, 'User', uid);
       const userDoc = await getDoc(userRef);
-
-      if (userDoc.exists()) {
-        const wishlistRef = collection(userRef, 'Wishlist');
-        await addDoc(wishlistRef, property);
-        alert('Property added to wishlist successfully!');
-      } else {
-        console.warn('User document does not exist. Please sign in to add to wishlist.');
+  
+      if (!userDoc.exists()) {
+        // Create the user document if it doesn't exist
+        await setDoc(userRef, {});
       }
+  
+      const wishlistRef = collection(userRef, 'Wishlist');
+      const propertyWithTimestamp = {
+        ...property,
+        addedAt: Timestamp.now()
+      };
+      await addDoc(wishlistRef, propertyWithTimestamp);
+      alert('Property added to wishlist successfully!');
     } catch (error) {
       console.error('Error adding property to wishlist:', error);
       alert('Failed to add property to wishlist. Please try again later.');
     }
   };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -139,12 +149,12 @@ function ShopGridV1() {
                                     <div className="col-lg-4 col-sm-6 col-12" key={property.id}>
                                       <div className="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
                                         <div className="product-img">
-                                          <Link
-                                            to={{
-                                              pathname: `/shop-details/${property.id}`,
-                                              state: { propertyData: property }
-                                            }}
-                                          >
+                                        <Link
+                          to={{
+                            pathname: `/shop-details/${property.id}`,
+                            state: { propertyData: property, documentId: property.id }
+                          }}
+                        >
                                             <img src={property.coverPhoto?.url} alt={property.coverPhoto?.title} />
                                           </Link>
                                           <div className="real-estate-agent">
@@ -166,8 +176,18 @@ function ShopGridV1() {
                                               <li className="sale-badg">{property.purpose}</li>
                                             </ul>
                                           </div>
-                                          <h2 className="product-title go-top"><Link to={`/shop-details/${property.id}`}>{property.title}</Link></h2>
-                                          <h2 className="product-title go-top"><Link to={`/shop-details/${property.id}`}>{property.title_l1}</Link></h2>
+                                          <h2 className="product-title go-top"><Link
+                                            to={{
+                                              pathname: `/shop-details/${property}`,
+                                              state: { propertyData: property }
+                                            }}
+                                          >{property.title}</Link></h2>
+                                          <h2 className="product-title go-top"><Link
+                                            to={{
+                                              pathname: `/shop-details/${property}`,
+                                              state: { propertyData: property }
+                                            }}
+                                          >{property.title_l1}</Link></h2>
                                           <div className="product-img-location">
                                             <ul>
                                               <li className="go-top">
@@ -189,7 +209,12 @@ function ShopGridV1() {
                                               </li>
                                               <li>
                                                 <span className="go-top">
-                                                  <Link to={`/shop-details/${property.id}`}>
+                                                <Link
+                                            to={{
+                                              pathname: `/shop-details/${property}`,
+                                              state: { propertyData: property }
+                                            }}
+                                          >
                                                     <i className="flaticon-add" />
                                                   </Link>
                                                 </span>
@@ -247,8 +272,18 @@ function ShopGridV1() {
                                   <li className="sale-badg">{property.purpose}</li>
                                 </ul>
                               </div>
-                              <h2 className="product-title go-top"><Link to={`/shop-details/${property.id}`}>{property.title}</Link></h2>
-                              <h2 className="product-title go-top"><Link to={`/shop-details/${property.id}`}>{property.title_l1}</Link></h2>
+                              <h2 className="product-title go-top"><Link
+                          to={{
+                            pathname: `/shop-details/${property.id}`,
+                            state: { propertyData: property, documentId: property.id }
+                          }}
+                        >{property.title}</Link></h2>
+                              <h2 className="product-title go-top"><Link
+                          to={{
+                            pathname: `/shop-details/${property.id}`,
+                            state: { propertyData: property, documentId: property.id }
+                          }}
+                        >{property.title_l1}</Link></h2>
                               <div className="product-img-location">
                                 <ul>
                                   <li className="go-top">
@@ -270,7 +305,12 @@ function ShopGridV1() {
                                   </li>
                                   <li>
                                     <span className="go-top">
-                                      <Link to={`/shop-details/${property.id}`}>
+                                    <Link
+                          to={{
+                            pathname: `/shop-details/${property.id}`,
+                            state: { propertyData: property, documentId: property.id }
+                          }}
+                        >
                                         <i className="flaticon-add" />
                                       </Link>
                                     </span>
