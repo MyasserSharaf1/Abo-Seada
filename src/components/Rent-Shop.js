@@ -8,7 +8,7 @@ import Footer from './global-components/footer';
 const Shop_V1 = () => {
     return <div>
         <Navbar />
-        <PageHeader headertitle="Shop" />
+        <PageHeader headertitle=" Rental Shop" />
         <ShogGrid />
         <CallToActionV1 />
         <Footer />

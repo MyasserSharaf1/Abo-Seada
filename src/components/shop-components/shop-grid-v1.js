@@ -172,6 +172,11 @@ function ShopGridV1() {
                                 </Link>
                               </span>
                             </li>
+                            <li>
+                              <button onClick={() => addToWishlist(property)} title="Add to cart">
+                                <i className="flaticon-heart-1" />
+                              </button>
+                            </li>
                           </ul>
                         </div>
                       </div>
