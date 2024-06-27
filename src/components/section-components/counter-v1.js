@@ -34,9 +34,9 @@ function CounterV1() {
         setProperties(propertyData);
 
         // Calculate total area
-        const totalArea = propertyData.reduce((acc, property) => acc + (property.area || 0), 0);
-        setTotalArea(totalArea);
-
+        const totalArea = propertyData.reduce((acc, property) => acc + (property.area || 0), 0)
+  .toFixed(3);
+setTotalArea(parseFloat(totalArea));
         // Fetch purchased properties count
         const purchasedSnapshot = await getDocs(purchasedColRef);
         setPropertiesSold(purchasedSnapshot.size);

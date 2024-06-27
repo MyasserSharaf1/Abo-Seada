@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, getDocs, addDoc, doc, getDoc, setDoc ,Timestamp} from 'firebase/firestore';
+import { getFirestore, collection, getDocs, addDoc, doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
@@ -47,25 +47,25 @@ function ShopGridV1() {
 
   const addToWishlist = async (property) => {
     const currentUser = auth.currentUser;
-  
+
     if (!currentUser) {
       console.warn('User is not signed in. Please sign in to add to wishlist.');
       // Implement sign-in logic here (e.g., redirect to sign-in page)
       return;
     }
-  
+
     const uid = currentUser.uid;
     console.log(uid);
-  
+
     try {
       const userRef = doc(db, 'User', uid);
       const userDoc = await getDoc(userRef);
-  
+
       if (!userDoc.exists()) {
         // Create the user document if it doesn't exist
         await setDoc(userRef, {});
       }
-  
+
       const wishlistRef = collection(userRef, 'Wishlist');
       const propertyWithTimestamp = {
         ...property,
@@ -76,6 +76,50 @@ function ShopGridV1() {
     } catch (error) {
       console.error('Error adding property to wishlist:', error);
       alert('Failed to add property to wishlist. Please try again later.');
+    }
+  };
+
+  const addToCart = async (property) => {
+    const currentUser = auth.currentUser;
+
+    if (currentUser) {
+      // Handle logged-in user's cart
+      const uid = currentUser.uid;
+
+      try {
+        const userRef = doc(db, 'User', uid);
+        const userDoc = await getDoc(userRef);
+
+        if (!userDoc.exists()) {
+          await setDoc(userRef, {});
+        }
+
+        const cartRef = collection(userRef, 'Cart');
+        const propertyWithTimestamp = {
+          ...property,
+          addedAt: Timestamp.now()
+        };
+
+        // Add the selected property to the cart
+        await addDoc(cartRef, propertyWithTimestamp);
+
+        alert('Property added to cart successfully!');
+      } catch (error) {
+        console.error('Error adding property to cart:', error);
+        alert('Failed to add property to cart. Please try again later.');
+      }
+    } else {
+      // Handle guest user's cart
+      const guestCart = JSON.parse(localStorage.getItem('guestCart')) || [];
+
+      // Add the selected property to the guest cart
+      guestCart.push({
+        ...property,
+        addedAt: new Date().toISOString()
+      });
+
+      localStorage.setItem('guestCart', JSON.stringify(guestCart));
+      alert('Property added to cart successfully!');
     }
   };
 
@@ -126,20 +170,12 @@ function ShopGridV1() {
                           </ul>
                         </div>
                         <h2 className="product-title go-top">
-                        <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >{property.title}</Link>
-                        </h2>
-                        <h2 className="product-title go-top">
-                        <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >{property.title_l1}</Link>
+                          <Link
+                            to={{
+                              pathname: `/shop-details/${property.id}`,
+                              state: { propertyData: property, documentId: property.id }
+                            }}
+                          >{property.title}</Link>
                         </h2>
                         <div className="product-img-location">
                           <ul>
@@ -161,6 +197,11 @@ function ShopGridV1() {
                               </button>
                             </li>
                             <li>
+                              <button onClick={() => addToCart(property)} title="Add to Cart">
+                                <i className="flaticon-shopping-cart" />
+                              </button>
+                            </li>
+                            <li>
                               <span className="go-top">
                                 <Link
                                   to={{
@@ -171,11 +212,6 @@ function ShopGridV1() {
                                   <i className="flaticon-add" />
                                 </Link>
                               </span>
-                            </li>
-                            <li>
-                              <button onClick={() => addToWishlist(property)} title="Add to cart">
-                                <i className="flaticon-heart-1" />
-                              </button>
                             </li>
                           </ul>
                         </div>
