@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const apiKey = "AIzaSyCA1kh4K_z8dDxT7eaQiMZP466ZB7YjkXQ";
@@ -21,6 +21,7 @@ function ChatGem() {
   const [chatHistory, setChatHistory] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [newMessage, setNewMessage] = useState(null);
 
   const handleUserInputChange = (event) => {
     setUserInput(event.target.value);
@@ -30,30 +31,34 @@ function ChatGem() {
     if (!userInput || isLoading) return;
 
     setIsLoading(true);
-    const newChatHistory = [
-      ...chatHistory,
-      { role: "user", parts: [{ text: userInput }] },
-    ];
-    setChatHistory(newChatHistory);
+    const userMessage = { role: "user", parts: [{ text: userInput }] };
+    setChatHistory((prevChatHistory) => [...prevChatHistory, userMessage]);
     setUserInput("");
 
     try {
       const chatSession = model.startChat({
         generationConfig,
-        history: newChatHistory,
+        history: [...chatHistory, userMessage],
       });
       const result = await chatSession.sendMessage(userInput);
-
-      setChatHistory((prevChatHistory) => [
-        ...prevChatHistory,
-        { role: "model", parts: [{ text: result.response.text() }] },
-      ]);
+      const botMessage = {
+        role: "model",
+        parts: [{ text: await result.response.text() }],
+      };
+      setNewMessage(botMessage);
     } catch (error) {
       console.error("Error sending message:", error);
-    } finally {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (newMessage) {
+      setChatHistory((prevChatHistory) => [...prevChatHistory, newMessage]);
+      setNewMessage(null);
+      setIsLoading(false);
+    }
+  }, [newMessage]);
 
   return (
     <div
@@ -61,7 +66,7 @@ function ChatGem() {
         maxWidth: "600px",
         margin: "0 auto",
         padding: "20px",
-        marginBottom: "100px",
+        marginBottom: "50px",
         fontFamily: "Arial, sans-serif",
       }}
     >
