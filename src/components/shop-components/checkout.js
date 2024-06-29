@@ -309,37 +309,20 @@ const Checkout = () => {
               <table className="table">
                 <tbody>
                   <tr>
-                    <td>
-                      Brake Conversion Kit <strong>× 2</strong>
-                    </td>
-                    <td>$298.00</td>
+                    <td>Apartment in new Cairo</td>
+                    <td>$29800.00</td>
                   </tr>
                   <tr>
-                    <td>
-                      OE Replica Wheels <strong>× 2</strong>
-                    </td>
-                    <td>$170.00</td>
+                    <td>Villa in Zamalek</td>
+                    <td>$17000000.00</td>
                   </tr>
-                  <tr>
-                    <td>
-                      Wheel Bearing Retainer <strong>× 2</strong>
-                    </td>
-                    <td>$150.00</td>
-                  </tr>
-                  <tr>
-                    <td>Shipping and Handling</td>
-                    <td>$15.00</td>
-                  </tr>
-                  <tr>
-                    <td>Vat</td>
-                    <td>$00.00</td>
-                  </tr>
+
                   <tr>
                     <td>
                       <strong>Order Total</strong>
                     </td>
                     <td>
-                      <strong>$633.00</strong>
+                      <strong>$17,029,800</strong>
                     </td>
                   </tr>
                 </tbody>
