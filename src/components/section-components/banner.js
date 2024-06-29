@@ -61,7 +61,9 @@ class Banner extends Component {
                     </div>
                     <div className="slide-item-img">
                       <img
-                        src={publicUrl + "/assets/img/slider/21.png"}
+                        src={
+                          "https://www.propertyfinder.eg/blog/wp-content/uploads/2018/01/UIA0lUqvlPMy9ghblSw2xHcHK3gSxB-1.jpg"
+                        }
                         alt="#"
                       />
                     </div>
@@ -112,7 +114,9 @@ class Banner extends Component {
                     </div>
                     <div className="slide-item-img slide-img-left">
                       <img
-                        src={publicUrl + "/assets/img/slider/21.png"}
+                        src={
+                          "https://golfportomarina.com/wp-content/uploads/2021/07/the-city-of-odyssia-compound.jpg"
+                        }
                         alt="#"
                       />
                     </div>

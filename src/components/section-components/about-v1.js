@@ -4,7 +4,7 @@ import parse from "html-react-parser";
 
 class AboutV1 extends Component {
   render() {
-    let publicUrl = process.env.PUBLIC_URL + "/";
+    let publicUrl = "../../../public/";
 
     return (
       <div className="ltn__about-us-area pt-120 pb-90 ">
@@ -13,13 +13,17 @@ class AboutV1 extends Component {
             <div className="col-lg-6 align-self-center">
               <div className="about-us-img-wrap about-img-left">
                 <img
-                  src={publicUrl + "assets/img/others/7.png"}
+                  src={
+                    "https://img.freepik.com/free-photo/three-dimensional-house-model_23-2151003968.jpg?size=626&ext=jpg&ga=GA1.1.1141335507.1719360000&semt=ais_user"
+                  }
                   alt="About Us Image"
                 />
                 <div className="about-us-img-info about-us-img-info-2 about-us-img-info-3">
                   <div className="ltn__video-img ltn__animation-pulse1">
                     <img
-                      src={publicUrl + "assets/img/others/8.png"}
+                      src={
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYz8zEAFyjZKTNeQW-MRagzdrD-bTFpArsiA&s"
+                      }
                       alt="video popup bg image"
                     />
                     <a

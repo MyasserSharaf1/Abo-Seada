@@ -11,11 +11,11 @@ class VideoV1 extends Component {
       <div className="ltn__video-popup-area ltn__video-popup-margin---">
         <div
           className="ltn__video-bg-img ltn__video-popup-height-600--- bg-overlay-black-30 bg-image bg-fixed ltn__animation-pulse1"
-          data-bs-bg={publicUrl + "assets/img/bg/19.jpg"}
+          data-bs-bg={"https://vso-media.ecommerce.tmg.com.eg/assets/intro/1_poster.jpg"}
         >
           <a
             className="ltn__video-icon-2 ltn__video-icon-2-border---"
-            href="https://www.youtube.com/embed/83oW09FiZ9k?si=JUljRFe6bd-sZVgn"
+            href="https://www.youtube.com/embed/yqKEZ1OAqBs?si=d4GBvjJRmutHIAoQ"
             data-rel="lightcase:myCollection"
           >
             <i className="fa fa-play" />
