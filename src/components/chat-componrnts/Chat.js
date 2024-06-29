@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import React, { useState, useEffect } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const apiKey = "AIzaSyCA1kh4K_z8dDxT7eaQiMZP466ZB7YjkXQ";
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -19,8 +19,9 @@ const generationConfig = {
 
 function ChatGem() {
   const [chatHistory, setChatHistory] = useState([]);
-  const [userInput, setUserInput] = useState('');
+  const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [newMessage, setNewMessage] = useState(null);
 
   const handleUserInputChange = (event) => {
     setUserInput(event.target.value);
@@ -30,33 +31,61 @@ function ChatGem() {
     if (!userInput || isLoading) return;
 
     setIsLoading(true);
-    const newChatHistory = [...chatHistory, { role: "user", parts: [{ text: userInput }] }];
-    setChatHistory(newChatHistory);
-    setUserInput('');
+    const userMessage = { role: "user", parts: [{ text: userInput }] };
+    setChatHistory((prevChatHistory) => [...prevChatHistory, userMessage]);
+    setUserInput("");
 
     try {
-      const chatSession = model.startChat({ generationConfig, history: newChatHistory });
+      const chatSession = model.startChat({
+        generationConfig,
+        history: [...chatHistory, userMessage],
+      });
       const result = await chatSession.sendMessage(userInput);
-
-      setChatHistory((prevChatHistory) => [
-        ...prevChatHistory,
-        { role: "model", parts: [{ text: result.response.text() }] },
-      ]);
+      const botMessage = {
+        role: "model",
+        parts: [{ text: await result.response.text() }],
+      };
+      setNewMessage(botMessage);
     } catch (error) {
-      console.error('Error sending message:', error);
-    } finally {
+      console.error("Error sending message:", error);
       setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (newMessage) {
+      setChatHistory((prevChatHistory) => [...prevChatHistory, newMessage]);
+      setNewMessage(null);
+      setIsLoading(false);
+    }
+  }, [newMessage]);
+
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+    <div
+      style={{
+        maxWidth: "600px",
+        margin: "0 auto",
+        padding: "20px",
+        marginBottom: "50px",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
       <h1>Ask Askun</h1>
-      <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px', marginBottom: '10px', height: '300px', overflowY: 'scroll' }}>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+      <div
+        style={{
+          border: "1px solid #ccc",
+          padding: "10px",
+          borderRadius: "5px",
+          marginBottom: "10px",
+          height: "300px",
+          overflowY: "scroll",
+        }}
+      >
+        <ul style={{ listStyle: "none", padding: 0 }}>
           {chatHistory.map((message, index) => (
-            <li key={index} style={{ margin: '10px 0' }}>
-              <strong>{message.role === "user" ? "You" : "Askun"}:</strong> {message.parts[0].text}
+            <li key={index} style={{ margin: "10px 0" }}>
+              <strong>{message.role === "user" ? "You" : "Askun"}:</strong>{" "}
+              {message.parts[0].text}
             </li>
           ))}
         </ul>
@@ -65,18 +94,33 @@ function ChatGem() {
         type="text"
         value={userInput}
         onChange={handleUserInputChange}
-        style={{ width: 'calc(100% - 22px)', padding: '10px', borderRadius: '5px', border: '1px solid #ccc', marginBottom: '10px' }}
+        style={{
+          width: "calc(100% - 22px)",
+          padding: "10px",
+          borderRadius: "5px",
+          border: "1px solid #ccc",
+          marginBottom: "10px",
+        }}
         placeholder="Type your message here..."
       />
       <button
         onClick={sendMessage}
-        style={{ width: '100%', padding: '10px', borderRadius: '5px', border: 'none', backgroundColor: '#007bff', color: '#fff', cursor: 'pointer' }}
+        style={{
+          width: "100%",
+          padding: "10px",
+          borderRadius: "5px",
+          border: "none",
+          backgroundColor: "#ffd28f",
+          color: "#fff",
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
         disabled={isLoading}
       >
-        {isLoading ? 'Sending...' : 'Send'}
+        {isLoading ? "Sending..." : "Send"}
       </button>
     </div>
   );
 }
 
-export default ChatGem ;
+export default ChatGem;
