@@ -40,6 +40,7 @@ import Blog from "./components/blog";
 
 import BlogDetails from "./components/blog-details";
 import Contact from "./components/contact";
+import feedback from "./components/Feedback";
 import Cart from "./components/cart";
 import Checkout from "./components/checkout";
 import MyAccount from "./components/my-account";
@@ -92,6 +93,7 @@ class Root extends Component {
 
               <Route path="/blog-details" component={BlogDetails} />
               <Route path="/contact" component={Contact} />
+              <Route path="/feedback" component={feedback} />
               <Route path="/cart" component={Cart} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/my-account" component={MyAccount} />

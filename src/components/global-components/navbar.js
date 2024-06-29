@@ -256,6 +256,9 @@ class Navbar extends Component {
                                     <Link to="/contact">Contact</Link>
                                   </li>
                                   <li>
+                                    <Link to="/Feedback">feedback</Link>
+                                  </li>
+                                  <li>
                                     <Link to="/coming-soon">Coming Soon</Link>
                                   </li>
                                 </ul>
