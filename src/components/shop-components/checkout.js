@@ -1,12 +1,31 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 import { useMoralis, useWeb3Contract } from "react-moralis";
+import React, { useState, useEffect } from "react";
+
+import { createCharge } from "./chargeGenerator";
 
 const Checkout = () => {
   let publicUrl = process.env.PUBLIC_URL + "/";
   const { enableWeb3, isWeb3Enabled } = useMoralis();
+  const [hostedUrl, setHostedUrl] = useState("");
 
+  useEffect(() => {
+    const fetchChargeData = async () => {
+      const chargeData = await createCharge();
+      if (chargeData && chargeData.data && chargeData.data.hosted_url) {
+        setHostedUrl(chargeData.data.hosted_url);
+      }
+    };
+
+    fetchChargeData();
+  }, []);
+
+  const handleClick = () => {
+    if (hostedUrl) {
+      window.location.href = hostedUrl;
+    }
+  };
   return (
     <div className="ltn__checkout-area mb-105">
       <div className="container">
@@ -275,14 +294,19 @@ const Checkout = () => {
                     <div className="card-body">
                       <p>Pay through your crypto wallet</p>
                       <div>
-                        {isWeb3Enabled ? (
+                        {/* {isWeb3Enabled ? (
                           <div>
                             "Your Wallet is Connected"
-                            <button>Buy</button>
+                            <button onClick={handleClick} disabled={!hostedUrl}>
+                              Pay with Crypto
+                            </button>
                           </div>
                         ) : (
                           <button onClick={() => enableWeb3()}>Connect</button>
-                        )}
+                        )} */}
+                        <button onClick={handleClick} disabled={!hostedUrl}>
+                          Pay with Crypto
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -295,12 +319,12 @@ const Checkout = () => {
                   purposes described in our privacy policy.
                 </p>
               </div>
-              <button
+              {/* <button
                 className="btn theme-btn-1 btn-effect-1 text-uppercase"
                 type="submit"
               >
                 Place order
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="col-lg-6">
