@@ -1,31 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import parse from "html-react-parser";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import React, { useState, useEffect } from "react";
-
-import { createCharge } from "./chargeGenerator";
+import ChargeGenerator from "./chargeGenerator";
+import CartV1 from "./cart";
+// import { createCharge } from "./chargeGenerator";
 
 const Checkout = () => {
   let publicUrl = process.env.PUBLIC_URL + "/";
   const { enableWeb3, isWeb3Enabled } = useMoralis();
-  const [hostedUrl, setHostedUrl] = useState("");
 
-  useEffect(() => {
-    const fetchChargeData = async () => {
-      const chargeData = await createCharge();
-      if (chargeData && chargeData.data && chargeData.data.hosted_url) {
-        setHostedUrl(chargeData.data.hosted_url);
-      }
-    };
-
-    fetchChargeData();
-  }, []);
-
-  const handleClick = () => {
-    if (hostedUrl) {
-      window.location.href = hostedUrl;
-    }
-  };
   return (
     <div className="ltn__checkout-area mb-105">
       <div className="container">
@@ -304,9 +288,10 @@ const Checkout = () => {
                         ) : (
                           <button onClick={() => enableWeb3()}>Connect</button>
                         )} */}
-                        <button onClick={handleClick} disabled={!hostedUrl}>
+                        {/* <button onClick={handleClick} disabled={!hostedUrl}>
                           Pay with Crypto
-                        </button>
+                        </button> */}
+                        <ChargeGenerator />
                       </div>
                     </div>
                   </div>
@@ -327,30 +312,34 @@ const Checkout = () => {
               </button> */}
             </div>
           </div>
-          <div className="col-lg-6">
-            <div className="shoping-cart-total mt-50">
-              <h4 className="title-2">Cart Totals</h4>
-              <table className="table">
-                <tbody>
-                  <tr>
-                    <td>Apartment in new Cairo</td>
-                    <td>$29800.00</td>
-                  </tr>
-                  <tr>
-                    <td>Villa in Zamalek</td>
-                    <td>$17000000.00</td>
-                  </tr>
+          {/* cart */}
 
-                  <tr>
-                    <td>
-                      <strong>Order Total</strong>
-                    </td>
-                    <td>
-                      <strong>$17,029,800</strong>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          <div className="col-lg-6">
+            <div className="shoping-cart-total mt-50 text-sm">
+              <h4 className="title-2">Cart Totals</h4>
+              {/* <table className="table">
+            <tbody>
+              <tr>
+                <td>Apartment in new Cairo</td>
+                <td>$29800.00</td>
+              </tr>
+              <tr>
+                <td>Villa in Zamalek</td>
+                <td>$17000000.00</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Order Total</strong>
+                </td>
+                <td>
+                  <strong>0</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table> */}
+
+              <CartV1 btnStatus={false} />
             </div>
           </div>
         </div>
