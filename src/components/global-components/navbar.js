@@ -165,7 +165,7 @@ class Navbar extends Component {
                                 <Link to="/Rent-Shop">Rent Shop</Link>
                               </li>
                               <li>
-                                <Link to="/Sale-Shop"> sale Shop</Link>
+                                <Link to="/Sale-Shop"> Sale Shop</Link>
                               </li>
                               <li>
                                 <Link to="/shop-grid">Shop Grid</Link>
@@ -192,19 +192,7 @@ class Navbar extends Component {
                             </ul>
                           </li>
                           <li>
-                            <Link to="/blog-grid">News</Link>
-                            <ul>
-                              <li>
-                                <Link to="/blog">News</Link>
-                              </li>
-                              <li>
-                                <Link to="/blog-grid">News Grid</Link>
-                              </li>
-
-                              <li>
-                                <Link to="/blog-details">News details</Link>
-                              </li>
-                            </ul>
+                            <Link to="/blog-right-sidebar">News</Link>
                           </li>
                           <li>
                             <Link to="#">Pages</Link>
@@ -491,14 +479,7 @@ class Navbar extends Component {
                   <Link to="/blog-grid">News</Link>
                   <ul className="sub-menu">
                     <li>
-                      <Link to="/blog">News</Link>
-                    </li>
-                    <li>
-                      <Link to="/blog-grid">News Grid</Link>
-                    </li>
-
-                    <li>
-                      <Link to="/blog-details">News details</Link>
+                      <Link to="/blog-right-sidebar">News</Link>
                     </li>
                   </ul>
                 </li>
