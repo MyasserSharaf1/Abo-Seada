@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Social from "../section-components/social";
+import CartV1 from "../shop-components/cart";
 
 class Navbar extends Component {
   render() {
@@ -164,7 +165,7 @@ class Navbar extends Component {
                                 <Link to="/Rent-Shop">Rent Shop</Link>
                               </li>
                               <li>
-                                <Link to="/Sale-Shop"> sale Shop</Link>
+                                <Link to="/Sale-Shop"> Sale Shop</Link>
                               </li>
                               <li>
                                 <Link to="/shop-grid">Shop Grid</Link>
@@ -191,19 +192,7 @@ class Navbar extends Component {
                             </ul>
                           </li>
                           <li>
-                            <Link to="/blog-grid">News</Link>
-                            <ul>
-                              <li>
-                                <Link to="/blog">News</Link>
-                              </li>
-                              <li>
-                                <Link to="/blog-grid">News Grid</Link>
-                              </li>
-
-                              <li>
-                                <Link to="/blog-details">News details</Link>
-                              </li>
-                            </ul>
+                            <Link to="/blog-right-sidebar">News</Link>
                           </li>
                           <li>
                             <Link to="#">Pages</Link>
@@ -364,7 +353,7 @@ class Navbar extends Component {
                       className="ltn__utilize-toggle"
                     >
                       <i className="icon-shopping-cart"></i>
-                      <sup>1</sup>
+                      <sup></sup>
                     </a>
                   </div>
                   {/* mini-cart */}
@@ -490,14 +479,7 @@ class Navbar extends Component {
                   <Link to="/blog-grid">News</Link>
                   <ul className="sub-menu">
                     <li>
-                      <Link to="/blog">News</Link>
-                    </li>
-                    <li>
-                      <Link to="/blog-grid">News Grid</Link>
-                    </li>
-
-                    <li>
-                      <Link to="/blog-details">News details</Link>
+                      <Link to="/blog-right-sidebar">News</Link>
                     </li>
                   </ul>
                 </li>
@@ -618,7 +600,7 @@ class Navbar extends Component {
               <span className="ltn__utilize-menu-title">Cart</span>
               <button className="ltn__utilize-close">×</button>
             </div>
-            <div className="mini-cart-product-area ltn__scrollbar">
+            {/* <div className="mini-cart-product-area ltn__scrollbar">
               <div className="mini-cart-item clearfix">
                 <div className="mini-cart-img go-top">
                   <Link to="/product-details">
@@ -638,18 +620,16 @@ class Navbar extends Component {
                   <span className="mini-cart-quantity">1 x 10000000</span>
                 </div>
               </div>
+            </div> */}
+            <div>
+              <CartV1 />
             </div>
             <div className="mini-cart-footer">
-              <div className="mini-cart-sub-total">
-                <h5>
-                  Subtotal: <span>10000000</span>
-                </h5>
-              </div>
               <div className="btn-wrapper go-top">
                 <Link to="/cart" className="theme-btn-1 btn btn-effect-1">
                   View Cart
                 </Link>
-                <Link to="/cart" className="theme-btn-2 btn btn-effect-2">
+                <Link to="/checkout" className="theme-btn-2 btn btn-effect-2">
                   Checkout
                 </Link>
               </div>
