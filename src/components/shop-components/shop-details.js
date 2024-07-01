@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import ThreeSixtyViewer from './ThreeSixtyViewer'; // Correct import path
+import { Pannellum } from 'pannellum-react';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, getDocs, addDoc, doc, getDoc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
-  authDomain: "askundb.firebaseapp.com",
-  projectId: "askundb",
-  storageBucket: "askundb.appspot.com",
-  messagingSenderId: "873898080051",
-  appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+	apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
+	authDomain: "askundb.firebaseapp.com",
+	projectId: "askundb",
+	storageBucket: "askundb.appspot.com",
+	messagingSenderId: "873898080051",
+	appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -65,13 +65,24 @@ function ShopDetails() {
                   <div className="row">
                     <div className="col-md-6">
                       <a data-rel="lightcase:myCollection">
-                        <img className="mb-30" src={propertyData.coverPhoto?.url} alt="Image" />
+                        <img className="mb-30" src={propertyData.coverPhoto?.url} alt="Property Cover" />
                       </a>
                       <a data-rel="lightcase:myCollection">
-                        <h4 className="title-2">360° View</h4>
-                        <ThreeSixtyViewer imagePath={propertyData.coverPhoto?.url} />
-                      </a>
+                      <h4 className="title-2">360° View</h4>  
+                        <Pannellum
+      width="100%"
+      height="400px"
+      image="https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2014/05/real-estate-photography-interior-after.jpg?fit=862%2C631&ssl=1"
+      pitch={10}
+      yaw={180}
+      hfov={110}
+      autoLoad
+      author="Askun"
+      title="360° View"
+    />
+                        </a>
                     </div>
+                    
                   </div>
                 </div>
                 <label><span className="ltn__secondary-color"><i className="flaticon-pin" /></span> Belmont Gardens, Chicago</label>

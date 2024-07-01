@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import Sidebar from './shop-sidebar';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, getDocs, addDoc, doc, getDoc,setDoc,Timestamp } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, where, addDoc, doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
-	apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
-	authDomain: "askundb.firebaseapp.com",
-	projectId: "askundb",
-	storageBucket: "askundb.appspot.com",
-	messagingSenderId: "873898080051",
-	appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+  apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
+  authDomain: "askundb.firebaseapp.com",
+  projectId: "askundb",
+  storageBucket: "askundb.appspot.com",
+  messagingSenderId: "873898080051",
+  appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -49,36 +49,59 @@ function ShopGridV1() {
     });
   }, []);
 
-  const handleSearchChange = (e) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
-    setFilteredProperties(properties.filter(property =>
-      (property.title && property.title.toLowerCase().includes(query)) ||
-      (property.title_l1 && property.title_l1.toLowerCase().includes(query))
-    ));
+  const handleSearchChange = async (e) => {
+    const queryText = e.target.value;
+    setSearchQuery(queryText);
+
+    if (!queryText) {
+      setFilteredProperties(properties);
+      return;
+    }
+
+    try {
+      const q1 = query(colRef, where('title', '>=', queryText), where('title', '<=', queryText + '\uf8ff'));
+      const q2 = query(colRef, where('title_l1', '>=', queryText), where('title_l1', '<=', queryText + '\uf8ff'));
+
+      const snapshot1 = await getDocs(q1);
+      const snapshot2 = await getDocs(q2);
+
+      const filtered = new Map();
+
+      snapshot1.docs.forEach(doc => {
+        filtered.set(doc.id, { ...doc.data(), id: doc.id });
+      });
+
+      snapshot2.docs.forEach(doc => {
+        filtered.set(doc.id, { ...doc.data(), id: doc.id });
+      });
+
+      setFilteredProperties(Array.from(filtered.values()));
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      setError(error);
+    }
   };
 
   const addToWishlist = async (property) => {
     const currentUser = auth.currentUser;
-  
+
     if (!currentUser) {
       console.warn('User is not signed in. Please sign in to add to wishlist.');
       // Implement sign-in logic here (e.g., redirect to sign-in page)
       return;
     }
-  
+
     const uid = currentUser.uid;
-    console.log(uid);
-  
+
     try {
       const userRef = doc(db, 'User', uid);
       const userDoc = await getDoc(userRef);
-  
+
       if (!userDoc.exists()) {
         // Create the user document if it doesn't exist
         await setDoc(userRef, {});
       }
-  
+
       const wishlistRef = collection(userRef, 'Wishlist');
       const propertyWithTimestamp = {
         ...property,
@@ -128,11 +151,11 @@ function ShopGridV1() {
                             <input
                               type="text"
                               name="search"
-                              placeholder="Search your keyword..."
+                              placeholder="Search using properties title"
                               value={searchQuery}
                               onChange={handleSearchChange}
                             />
-                            <button type="submit"><i className="fas fa-search" /></button>
+                           
                           </form>
                         </div>
                       </div>
@@ -146,14 +169,14 @@ function ShopGridV1() {
                                     <div className="col-lg-4 col-sm-6 col-12" key={property.id}>
                                       <div className="ltn__product-item ltn__product-item-4 ltn__product-item-5 text-center---">
                                         <div className="product-img">
-                                        <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >
-                          <img src={property.coverPhoto?.url} alt={property.coverPhoto?.title} />
-                        </Link>
+                                          <Link
+                                            to={{
+                                              pathname: `/shop-details/${property.id}`,
+                                              state: { propertyData: property, documentId: property.id }
+                                            }}
+                                          >
+                                            <img src={property.coverPhoto?.url} alt={property.coverPhoto?.title} />
+                                          </Link>
                                           <div className="real-estate-agent">
                                             <div className="agent-img">
                                               <Link
@@ -161,7 +184,9 @@ function ShopGridV1() {
                                                   pathname: `/team-details/${property}`,
                                                   state: { propertyData: property }
                                                 }}
-                                              ><img src={property.ownerAgent?.user_image} alt="#" /></Link>
+                                              >
+                                                <img src={property.ownerAgent?.user_image} alt="#" />
+                                              </Link>
                                             </div>
                                           </div>
                                         </div>
@@ -171,18 +196,22 @@ function ShopGridV1() {
                                               <li className="sale-badg">{property.purpose}</li>
                                             </ul>
                                           </div>
-                                          <h2 className="product-title go-top"> <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >{property.title}</Link></h2>
-                                          <h2 className="product-title go-top"> <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >{property.title_l1}</Link></h2>
+                                          <h2 className="product-title go-top"> 
+                                            <Link
+                                              to={{
+                                                pathname: `/shop-details/${property.id}`,
+                                                state: { propertyData: property, documentId: property.id }
+                                              }}
+                                            >{property.title}</Link>
+                                          </h2>
+                                          <h2 className="product-title go-top"> 
+                                            <Link
+                                              to={{
+                                                pathname: `/shop-details/${property.id}`,
+                                                state: { propertyData: property, documentId: property.id }
+                                              }}
+                                            >{property.title_l1}</Link>
+                                          </h2>
                                           <div className="product-img-location">
                                             <ul>
                                               <li className="go-top">
@@ -204,26 +233,19 @@ function ShopGridV1() {
                                               </li>
                                               <li>
                                                 <span className="go-top">
-                                                <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >
-                                                    <i className="flaticon-add" />
+                                                  <Link
+                                                    to={{
+                                                      pathname: `/shop-details/${property.id}`,
+                                                      state: { propertyData: property, documentId: property.id }
+                                                    }}
+                                                    title="Quick View"
+                                                  >
+                                                    <i className="flaticon-expand" />
                                                   </Link>
                                                 </span>
                                               </li>
                                             </ul>
                                           </div>
-                                        </div>
-                                        <div className="product-info-bottom">
-                                        <div className="product-price">
-                          <span>
-                            {property.price}
-                            {property.purpose === 'for-rent' && <label>/Month</label>}
-                          </span>
-                        </div>
                                         </div>
                                       </div>
                                     </div>
@@ -234,103 +256,110 @@ function ShopGridV1() {
                           </div>
                         </div>
                       </div>
-                      {/* product-two */}
                     </div>
                   </div>
-                </div>
-                <div className="tab-pane fade" id="liton_product_list">
-                  <div className="ltn__product-tab-content-inner ltn__product-list-view">
-                    <div className="row">
-                      <div className="col-lg-12">
-                        <div className="ltn__search-widget mb-30">
-                          <form onSubmit={(e) => e.preventDefault()}>
-                            <input
-                              type="text"
-                              name="search"
-                              placeholder="Search your keyword..."
-                              value={searchQuery}
-                              onChange={handleSearchChange}
-                            />
-                            <button type="submit"><i className="fas fa-search" /></button>
-                          </form>
-                        </div>
-                      </div>
-                      {filteredProperties.map((property) => (
-                        <div className="col-lg-12" key={property.id}>
-                          <div className="ltn__product-item ltn__product-item-4 ltn__product-item-5">
-                            <div className="product-img">
-                            <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >
-                                <img src={property.coverPhoto?.url} alt={property.coverPhoto?.title} />
-                              </Link>
-                            </div>
-                            <div className="product-info">
-                              <div className="product-badge">
-                                <ul>
-                                  <li className="sale-badg">{property.purpose}</li>
-                                </ul>
-                              </div>
-                              <h2 className="product-title go-top"> <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >{property.title}</Link></h2>
-                              <h2 className="product-title go-top"> <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >{property.title_l1}</Link></h2>
-                              <div className="product-img-location">
-                                <ul>
-                                  <li className="go-top">
-                                    <Link to="/contact"><i className="flaticon-pin" /> Belmont Gardens, Chicago</Link>
-                                  </li>
-                                </ul>
-                              </div>
-                              <ul className="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
-                                <li><span>{property.rooms} </span> Bedrooms</li>
-                                <li><span>{property.baths} </span> Bathrooms</li>
-                                <li><span>{property.area} </span> square Ft</li>
-                              </ul>
-                              <div className="product-hover-action">
-                                <ul>
-                                  <li>
-                                    <button onClick={() => addToWishlist(property)} title="Add to Wishlist">
-                                      <i className="flaticon-heart-1" />
-                                    </button>
-                                  </li>
-                                  <li>
-                                    <span className="go-top">
-                                    <Link
-                          to={{
-                            pathname: `/shop-details/${property.id}`,
-                            state: { propertyData: property, documentId: property.id }
-                          }}
-                        >
-                                        <i className="flaticon-add" />
-                                      </Link>
-                                    </span>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                            <div className="product-info-bottom">
-                            <div className="product-price">
-                          <span>
-                            {property.price}
-                            {property.purpose === 'for-rent' && <label>/Month</label>}
-                          </span>
-                        </div>
-                            </div>
+                  <div className="tab-pane fade" id="liton_product_list">
+                    <div className="ltn__product-tab-content-inner ltn__product-list-view">
+                      <div className="row">
+                        <div className="col-lg-12">
+                          <div className="ltn__search-widget mb-30">
+                            <form onSubmit={(e) => e.preventDefault()}>
+                              <input
+                                type="text"
+                                name="search"
+                                placeholder="Search your keyword..."
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                              />
+                            </form>
                           </div>
                         </div>
-                      ))}
+                        {filteredProperties.map((property) => (
+                          <div className="col-lg-12" key={property.id}>
+                            <div className="ltn__product-item ltn__product-item-4 ltn__product-item-5">
+                              <div className="product-img">
+                                <Link
+                                  to={{
+                                    pathname: `/shop-details/${property.id}`,
+                                    state: { propertyData: property, documentId: property.id }
+                                  }}
+                                >
+                                  <img src={property.coverPhoto?.url} alt={property.coverPhoto?.title} />
+                                </Link>
+                                <div className="real-estate-agent">
+                                  <div className="agent-img">
+                                    <Link
+                                      to={{
+                                        pathname: `/team-details/${property}`,
+                                        state: { propertyData: property }
+                                      }}
+                                    >
+                                      <img src={property.ownerAgent?.user_image} alt="#" />
+                                    </Link>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="product-info">
+                                <div className="product-badge">
+                                  <ul>
+                                    <li className="sale-badg">{property.purpose}</li>
+                                  </ul>
+                                </div>
+                                <h2 className="product-title go-top">
+                                  <Link
+                                    to={{
+                                      pathname: `/shop-details/${property.id}`,
+                                      state: { propertyData: property, documentId: property.id }
+                                    }}
+                                  >{property.title}</Link>
+                                </h2>
+                                <h2 className="product-title go-top">
+                                  <Link
+                                    to={{
+                                      pathname: `/shop-details/${property.id}`,
+                                      state: { propertyData: property, documentId: property.id }
+                                    }}
+                                  >{property.title_l1}</Link>
+                                </h2>
+                                <div className="product-img-location">
+                                  <ul>
+                                    <li className="go-top">
+                                      <Link to="/contact"><i className="flaticon-pin" /> Belmont Gardens, Chicago</Link>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <ul className="ltn__list-item-2--- ltn__list-item-2-before--- ltn__plot-brief">
+                                  <li><span>{property.rooms} </span> Bedrooms</li>
+                                  <li><span>{property.baths} </span> Bathrooms</li>
+                                  <li><span>{property.area} </span> square Ft</li>
+                                </ul>
+                                <div className="product-hover-action">
+                                  <ul>
+                                    <li>
+                                      <button onClick={() => addToWishlist(property)} title="Add to Wishlist">
+                                        <i className="flaticon-heart-1" />
+                                      </button>
+                                    </li>
+                                    <li>
+                                      <span className="go-top">
+                                        <Link
+                                          to={{
+                                            pathname: `/shop-details/${property.id}`,
+                                            state: { propertyData: property, documentId: property.id }
+                                          }}
+                                          title="Quick View"
+                                        >
+                                          <i className="flaticon-expand" />
+                                        </Link>
+                                      </span>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -75,17 +75,36 @@ function ChatGem() {
         style={{
           border: "1px solid #ccc",
           padding: "10px",
-          borderRadius: "5px",
+          borderRadius: "10px",
           marginBottom: "10px",
-          height: "300px",
+          height: "400px",
           overflowY: "scroll",
+          backgroundColor: "#f0f2f5",
         }}
       >
         <ul style={{ listStyle: "none", padding: 0 }}>
           {chatHistory.map((message, index) => (
-            <li key={index} style={{ margin: "10px 0" }}>
-              <strong>{message.role === "user" ? "You" : "Askun"}:</strong>{" "}
-              {message.parts[0].text}
+            <li
+              key={index}
+              style={{
+                margin: "10px 0",
+                display: "flex",
+                justifyContent:
+                  message.role === "user" ? "flex-end" : "flex-start",
+              }}
+            >
+              <div
+                style={{
+                  maxWidth: "80%",
+                  padding: "10px",
+                  borderRadius: "20px",
+                  backgroundColor:
+                    message.role === "user" ? "#ffd28f" : "#e4e6eb",
+                  color: message.role === "user" ? "#fff" : "#000",
+                }}
+              >
+                {message.parts[0].text}
+              </div>
             </li>
           ))}
         </ul>
@@ -95,9 +114,9 @@ function ChatGem() {
         value={userInput}
         onChange={handleUserInputChange}
         style={{
-          width: "calc(100% - 22px)",
+          width: "calc(100% - 20px)",
           padding: "10px",
-          borderRadius: "5px",
+          borderRadius: "20px",
           border: "1px solid #ccc",
           marginBottom: "10px",
         }}
@@ -108,7 +127,7 @@ function ChatGem() {
         style={{
           width: "100%",
           padding: "10px",
-          borderRadius: "5px",
+          borderRadius: "20px",
           border: "none",
           backgroundColor: "#ffd28f",
           color: "#fff",

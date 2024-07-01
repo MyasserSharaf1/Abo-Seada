@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Sidebar from './shop-sidebar';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, getDocs, addDoc, doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, addDoc, query, where, doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
@@ -51,15 +51,38 @@ function ShopGridV1() {
     }, []);
   
 
-  const handleSearchChange = (e) => {
-    const query = e.target.value.toLowerCase();
-    setSearchQuery(query);
-    setFilteredProperties(properties.filter(property =>
-      ((property.title && property.title.toLowerCase().includes(query)) ||
-      (property.title_l1 && property.title_l1.toLowerCase().includes(query))) &&
-      property.purpose === "for-rent"
-    ));
-  };
+    const handleSearchChange = async (e) => {
+      const queryText = e.target.value;
+      setSearchQuery(queryText);
+  
+      if (!queryText) {
+        setFilteredProperties(properties);
+        return;
+      }
+  
+      try {
+        const q1 = query(colRef, where('title', '>=', queryText), where('title', '<=', queryText + '\uf8ff'));
+        const q2 = query(colRef, where('title_l1', '>=', queryText), where('title_l1', '<=', queryText + '\uf8ff'));
+  
+        const snapshot1 = await getDocs(q1);
+        const snapshot2 = await getDocs(q2);
+  
+        const filtered = new Map();
+  
+        snapshot1.docs.forEach(doc => {
+          filtered.set(doc.id, { ...doc.data(), id: doc.id });
+        });
+  
+        snapshot2.docs.forEach(doc => {
+          filtered.set(doc.id, { ...doc.data(), id: doc.id });
+        });
+  
+        setFilteredProperties(Array.from(filtered.values()));
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+        setError(error);
+      }
+    };
 
   const addToWishlist = async (property) => {
     const currentUser = auth.currentUser;
@@ -130,11 +153,9 @@ function ShopGridV1() {
                             <input
                               type="text"
                               name="search"
-                              placeholder="Search your keyword..."
-                              value={searchQuery}
+                              placeholder="Search using properties title"                              value={searchQuery}
                               onChange={handleSearchChange}
                             />
-                            <button type="submit"><i className="fas fa-search" /></button>
                           </form>
                         </div>
                       </div>
@@ -224,7 +245,7 @@ function ShopGridV1() {
                                         </div>
                                         <div className="product-info-bottom">
                                           <div className="product-price">
-                                            <span>{property.price}<label></label></span>
+                                            <span>{property.price}<label>/month</label></span>
                                           </div>
                                         </div>
                                       </div>
@@ -249,11 +270,9 @@ function ShopGridV1() {
                             <input
                               type="text"
                               name="search"
-                              placeholder="Search your keyword..."
-                              value={searchQuery}
+                              placeholder="Search using properties title"                              value={searchQuery}
                               onChange={handleSearchChange}
                             />
-                            <button type="submit"><i className="fas fa-search" /></button>
                           </form>
                         </div>
                       </div>
@@ -320,7 +339,7 @@ function ShopGridV1() {
                             </div>
                             <div className="product-info-bottom">
                               <div className="product-price">
-                                <span>{property.price}</span>
+                                <span>{property.price} <label>/month</label></span>
                               </div>
                             </div>
                           </div>
