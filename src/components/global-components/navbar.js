@@ -2,8 +2,34 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Social from "../section-components/social";
 import CartV1 from "../shop-components/cart";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayName: null,
+      isAuthenticated: false
+    };
+  }
+
+  componentDidMount() {
+    
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.setState({
+          displayName: user.displayName,
+          isAuthenticated: true
+        });
+      } else {
+        this.setState({
+          isAuthenticated: false
+        });
+      }
+    });
+  }
+
   render() {
     let publicUrl = process.env.PUBLIC_URL + "/";
     return (
@@ -333,15 +359,26 @@ class Navbar extends Component {
                           <i className="icon-user" />
                         </Link>
                         <ul className="go-top">
-                          <li>
-                            <Link to="/login">Sign in</Link>
-                          </li>
-                          <li>
-                            <Link to="/register">Register</Link>
-                          </li>
-                          <li>
-                            <Link to="/my-account">My Account</Link>
-                          </li>
+                        {this.state.isAuthenticated ? (
+                <>
+                  <li>
+                    <span>{this.state.displayName}</span>
+                  </li>
+                  <li>
+                    <Link to="/my-account">My Account</Link>
+                  </li>
+                  {/* Add more authenticated user options as needed */}
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/login">Sign in</Link>
+                  </li>
+                  <li>
+                    <Link to="/register">Register</Link>
+                  </li>
+                </>
+              )}
                         </ul>
                       </li>
                     </ul>
@@ -446,7 +483,7 @@ class Navbar extends Component {
                   </ul>
                 </li>
                 <li>
-                  <Link to="/shop">Shop</Link>
+                  <Link to="/shop-grid">Shop</Link>
                   <ul className="sub-menu">
                     <li>
                       <Link to="/shop">Shop</Link>
@@ -547,7 +584,7 @@ class Navbar extends Component {
                   <Link to="/wishlist" title="Wishlist">
                     <span className="utilize-btn-icon">
                       <i className="far fa-heart" />
-                      <sup>3</sup>
+                      
                     </span>
                     Wishlist
                   </Link>
@@ -556,7 +593,7 @@ class Navbar extends Component {
                   <Link to="/cart" title="Shoping Cart">
                     <span className="utilize-btn-icon">
                       <i className="fas fa-shopping-cart" />
-                      <sup>5</sup>
+                      
                     </span>
                     Shoping Cart
                   </Link>
@@ -600,27 +637,7 @@ class Navbar extends Component {
               <span className="ltn__utilize-menu-title">Cart</span>
               <button className="ltn__utilize-close">×</button>
             </div>
-            {/* <div className="mini-cart-product-area ltn__scrollbar">
-              <div className="mini-cart-item clearfix">
-                <div className="mini-cart-img go-top">
-                  <Link to="/product-details">
-                    <img
-                      src={publicUrl + "assets/img/product/1.png"}
-                      alt="Image"
-                    />
-                  </Link>
-                  <span className="mini-cart-item-delete">
-                    <i className="icon-cancel" />
-                  </span>
-                </div>
-                <div className="mini-cart-info go-top">
-                  <h6>
-                    <Link to="/product-details">شقة في التجمع الخامس</Link>
-                  </h6>
-                  <span className="mini-cart-quantity">1 x 10000000</span>
-                </div>
-              </div>
-            </div> */}
+            
             <div>
               <CartV1 />
             </div>

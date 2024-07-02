@@ -3,15 +3,15 @@ import { useLocation } from 'react-router-dom';
 import { Pannellum } from 'pannellum-react';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp, collection, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-	apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
-	authDomain: "askundb.firebaseapp.com",
-	projectId: "askundb",
-	storageBucket: "askundb.appspot.com",
-	messagingSenderId: "873898080051",
-	appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+  apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
+  authDomain: "askundb.firebaseapp.com",
+  projectId: "askundb",
+  storageBucket: "askundb.appspot.com",
+  messagingSenderId: "873898080051",
+  appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -29,28 +29,35 @@ function ShopDetails() {
     });
   }, []);
 
-  const handlePurchase = async () => {
+  const addToCart = async (property) => {
     if (!currentUser) {
-      console.warn('User is not signed in. Please sign in to purchase the property.');
+      console.warn('User is not signed in. Please sign in to add property to cart.');
       return;
     }
 
     const uid = currentUser.uid;
+
     try {
-      // Add property to "PurchasedProperties" collection
-      await setDoc(doc(db, 'PurchasedProperties', documentId), {
-        ...propertyData,
-        userId: uid,
-        createdAt: serverTimestamp()
-      });
+      const userRef = doc(db, 'Users', uid);
+      const userDoc = await getDoc(userRef);
 
-      // Delete property from "Properties" collection
-      await deleteDoc(doc(db, 'Properties', documentId));
+      if (!userDoc.exists()) {
+        await setDoc(userRef, {});
+      }
 
-      alert('Property purchased successfully!');
+      const cartRef = collection(userRef, 'Cart');
+      const propertyWithTimestamp = {
+        ...property,
+        addedAt: serverTimestamp()
+      };
+
+      // Add the selected property to the cart
+      await addDoc(cartRef, propertyWithTimestamp);
+
+      alert('Property added to cart successfully!');
     } catch (error) {
-      console.error('Failed to purchase property:', error);
-      alert(`Failed to purchase property. Reason: ${error.message}`);
+      console.error('Error adding property to cart:', error);
+      alert('Failed to add property to cart. Please try again later.');
     }
   };
 
@@ -68,21 +75,20 @@ function ShopDetails() {
                         <img className="mb-30" src={propertyData.coverPhoto?.url} alt="Property Cover" />
                       </a>
                       <a data-rel="lightcase:myCollection">
-                      <h4 className="title-2">360° View</h4>  
+                        <h4 className="title-2">360° View</h4>
                         <Pannellum
-      width="100%"
-      height="400px"
-      image="https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2014/05/real-estate-photography-interior-after.jpg?fit=862%2C631&ssl=1"
-      pitch={10}
-      yaw={180}
-      hfov={110}
-      autoLoad
-      author="Askun"
-      title="360° View"
-    />
-                        </a>
+                          width="100%"
+                          height="400px"
+                          image="https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2014/05/real-estate-photography-interior-after.jpg?fit=862%2C631&ssl=1"
+                          pitch={10}
+                          yaw={180}
+                          hfov={110}
+                          autoLoad
+                          author="Askun"
+                          title="360° View"
+                        />
+                      </a>
                     </div>
-                    
                   </div>
                 </div>
                 <label><span className="ltn__secondary-color"><i className="flaticon-pin" /></span> Belmont Gardens, Chicago</label>
@@ -115,7 +121,7 @@ function ShopDetails() {
                     </div>
                   </div>
                 </div>
-                <button onClick={handlePurchase}>Buy Property</button>
+                <button onClick={() => addToCart(propertyData)} className="theme-btn-1 btn black-btn" style={{ backgroundColor: '#000000', color: '#ffffff', border: 'none', borderRadius: '20px', padding: '12px 20px', fontSize: '16px', cursor: 'pointer', transition: 'background-color 0.3s ease' }}>Add to Cart</button>
               </div>
             </div>
           </div>

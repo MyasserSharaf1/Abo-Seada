@@ -180,7 +180,6 @@ function ShopGridV1() {
                         <div className="product-img-location">
                           <ul>
                             <li className="go-top">
-                              <Link to="/contact"><i className="flaticon-pin" /> Belmont Gardens, Chicago</Link>
                             </li>
                           </ul>
                         </div>
@@ -192,13 +191,13 @@ function ShopGridV1() {
                         <div className="product-hover-action">
                           <ul>
                             <li>
-                              <button onClick={() => addToWishlist(property)} title="Add to Wishlist">
+                              <button onClick={() => addToWishlist(property)} title="Add to Wishlist" >
                                 <i className="flaticon-heart-1" />
                               </button>
                             </li>
                             <li>
                               <button onClick={() => addToCart(property)} title="Add to Cart">
-                                <i className="flaticon-shopping-cart" />
+                              <span> <i className="fas fa-shopping-cart" /></span> 
                               </button>
                             </li>
                             <li>

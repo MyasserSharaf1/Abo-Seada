@@ -159,24 +159,63 @@ class Login extends Component {
                   <div className="btn-wrapper go-top">
                     <Link to="/register" className="theme-btn-1 btn black-btn">CREATE ACCOUNT</Link>
                   </div>
-                </div>
-                {/* Google Sign-In Button */}
-                <div className="btn-wrapper go-top">
-                  <button onClick={this.handleGoogleSignIn} className="theme-btn-1 btn black-btn">
-                    Sign in with Google
-                  </button>
-                </div>
-                {/* Facebook Sign-In Button */}
-                <div className="btn-wrapper go-top">
-                  <button onClick={this.handleFacebookSignIn} className="theme-btn-1 btn black-btn">
-                    Sign in with Facebook
-                  </button>
-                </div>
-                {/* Apple Sign-In Button */}
-                <div className="btn-wrapper go-top">
-                  <button onClick={this.handleAppleSignIn} className="theme-btn-1 btn black-btn">
-                    Sign in with Apple
-                  </button>
+                  <div className="btn-wrapper go-top">
+                    <button
+                      onClick={this.handleGoogleSignIn}
+                      className="theme-btn-1 btn white-btn"
+                      style={{
+                        backgroundColor: '#ffffff', // White background
+                        color: '#000000', // Black text color
+                        border: '1px solid #f0c14b', // Thin yellow border
+                        borderRadius: '20px', // Curved corners
+                        padding: '12px 20px', // Padding
+                        fontSize: '16px', // Font size
+                        cursor: 'pointer', // Cursor style
+                        transition: 'background-color 0.3s ease, border-color 0.3s ease', // Transition for background and border color
+                        marginBottom: '10px' // Space below the button
+                      }}
+                    >
+                      <i className="fab fa-google" style={{ marginRight: '10px' }} /> Sign in with Google
+                    </button>
+                  </div>
+                  <div className="btn-wrapper go-top">
+                    <button
+                      onClick={this.handleFacebookSignIn}
+                      className="theme-btn-1 btn white-btn"
+                      style={{
+                        backgroundColor: '#ffffff', // White background
+                        color: '#000000', // Black text color
+                        border: '1px solid #f0c14b', // Thin yellow border
+                        borderRadius: '20px', // Curved corners
+                        padding: '12px 20px', // Padding
+                        fontSize: '16px', // Font size
+                        cursor: 'pointer', // Cursor style
+                        transition: 'background-color 0.3s ease, border-color 0.3s ease', // Transition for background and border color
+                        marginBottom: '10px' // Space below the button
+                      }}
+                    >
+                      <i className="fab fa-facebook-f" style={{ marginRight: '10px' }} /> Sign in with Facebook
+                    </button>
+                  </div>
+                  <div className="btn-wrapper go-top">
+                    <button
+                      onClick={this.handleAppleSignIn}
+                      className="theme-btn-1 btn white-btn"
+                      style={{
+                        backgroundColor: '#ffffff', // White background
+                        color: '#000000', // Black text color
+                        border: '1px solid #f0c14b', // Thin yellow border
+                        borderRadius: '20px', // Curved corners
+                        padding: '12px 20px', // Padding
+                        fontSize: '16px', // Font size
+                        cursor: 'pointer', // Cursor style
+                        transition: 'background-color 0.3s ease, border-color 0.3s ease', // Transition for background and border color
+                        marginBottom: '10px' // Space below the button
+                      }}
+                    >
+                      <i className="fab fa-apple" style={{ marginRight: '10px' }} /> Sign in with Apple
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

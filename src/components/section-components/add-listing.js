@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, addDoc, doc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc,getDoc,setDoc, doc ,Timestamp} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
@@ -103,16 +103,17 @@ class AddListing extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     const { isAgency, agencyId, formValues } = this.state;
-
+  
     if (isAgency) {
       try {
-        const agencyDoc = await doc(db, 'Agencies', agencyId).get();
+        const agencyDoc = await getDoc(doc(db, 'Agencies', agencyId));
         if (agencyDoc.exists()) {
-          await addDoc(collection(db, 'properties'), {
+          await addDoc(collection(db, 'Agencies', agencyId, 'Properties'), {
             ...formValues,
-            agency: agencyId
+            agency: agencyId,
+            addedAt: Timestamp.now() // Ensure to include a timestamp
           });
-          console.log('Property added to agency properties collection');
+          console.log('Property added to agency Properties collection');
         } else {
           alert('Invalid agency ID');
         }
@@ -121,13 +122,24 @@ class AddListing extends Component {
       }
     } else {
       const user = auth.currentUser;
+      const uid = user.uid;
       if (user) {
         try {
-          await addDoc(collection(db, 'my_properties'), {
+          const userRef = doc(db, 'User', uid);
+          const userDoc = await getDoc(userRef);
+  
+          if (!userDoc.exists()) {
+            // If the user document does not exist, create it
+            await setDoc(userRef, {});
+          }
+          const userprop = collection(userRef, 'my_Properties');
+  
+          await addDoc(userprop, {
             ...formValues,
-            userId: user.uid
+            userId: user.uid,
+            addedAt: Timestamp.now() // Ensure to include a timestamp
           });
-          console.log('Property added to user my_properties collection');
+          alert('Property added to user my_properties collection');
         } catch (error) {
           console.error('Error adding property:', error);
         }
@@ -136,7 +148,7 @@ class AddListing extends Component {
       }
     }
   };
-
+  
   render() {
     const { formValues, isAgency } = this.state;
 
