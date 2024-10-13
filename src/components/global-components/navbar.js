@@ -95,12 +95,6 @@ class Navbar extends Component {
                         <li>
                           <Social />
                         </li>
-                        <li>
-                          {/* header-top-btn */}
-                          <div className="header-top-btn">
-                            <Link to="/add-listing">Add Listing</Link>
-                          </div>
-                        </li>
                       </ul>
                     </div>
                   </div>
@@ -154,58 +148,13 @@ class Navbar extends Component {
                                 <Link to="/service">Services</Link>
                               </li>
                               <li>
-                                <Link to="/service-details">
-                                  Service Details
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to="/portfolio">Portfolio</Link>
-                              </li>
-
-                              <li>
-                                <Link to="/portfolio-details">
-                                  Portfolio Details
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to="/team">Team</Link>
-                              </li>
-                              <li>
-                                <Link to="/team-details">Team Details</Link>
-                              </li>
-                              <li>
-                                <Link to="/faq">FAQ</Link>
-                              </li>
-                              <li>
                                 <Link to="/location">Google Map Locations</Link>
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <Link to="/shop">Shop</Link>
+                            <Link to="/">Detail</Link>
                             <ul>
-                              <li>
-                                <Link to="/shop">Shop</Link>
-                              </li>
-                              <li>
-                                <Link to="/Rent-Shop">Rent Shop</Link>
-                              </li>
-                              <li>
-                                <Link to="/Sale-Shop"> Sale Shop</Link>
-                              </li>
-                              <li>
-                                <Link to="/shop-grid">Shop Grid</Link>
-                              </li>
-
-                              <li>
-                                <Link to="/product-details">Shop Details</Link>
-                              </li>
-                              <li>
-                                <Link to="/cart">Cart</Link>
-                              </li>
-                              <li>
-                                <Link to="/checkout">Checkout</Link>
-                              </li>
                               <li>
                                 <Link to="/my-account">My Account</Link>
                               </li>
@@ -218,107 +167,6 @@ class Navbar extends Component {
                             </ul>
                           </li>
                           <li>
-                            <Link to="/blog-right-sidebar">News</Link>
-                          </li>
-                          <li>
-                            <Link to="#">Pages</Link>
-                            <ul className="mega-menu">
-                              <li>
-                                <a href="#">Inner Pages</a>
-                                <ul>
-                                  <li>
-                                    <Link to="/portfolio">Portfolio</Link>
-                                  </li>
-
-                                  <li>
-                                    <Link to="/portfolio-details">
-                                      Portfolio Details
-                                    </Link>
-                                  </li>
-
-                                  <li>
-                                    <Link to="/ChatGemini">Chat assistant</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/team">Team</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/team-details">Team Details</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/faq">FAQ</Link>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li>
-                                <Link to="#">Inner Pages</Link>
-                                <ul>
-                                  <li>
-                                    <Link to="/history">History</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/add-listing">Add Listing</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/location">
-                                      Google Map Locations
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/404">404</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/contact">Contact</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/Feedback">feedback</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/coming-soon">Coming Soon</Link>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li>
-                                <Link to="#">Shop Pages</Link>
-                                <ul>
-                                  <li>
-                                    <Link to="/shop">Shop</Link>
-                                  </li>
-
-                                  <li>
-                                    <Link to="/Rent-Shop">Rent Shop</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/Sale-Shop"> sale Shop</Link>
-                                  </li>
-
-                                  <li>
-                                    <Link to="/shop-grid">Shop Grid</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/product-details">
-                                      Shop details{" "}
-                                    </Link>
-                                  </li>
-                                  <li>
-                                    <Link to="/cart">Cart</Link>
-                                  </li>
-                                </ul>
-                              </li>
-                              <li>
-                                <Link to="/shop">
-                                  <img
-                                    src={
-                                      publicUrl +
-                                      "assets/img/banner/menu-banner-1.jpg"
-                                    }
-                                    alt="#"
-                                  />
-                                </Link>
-                              </li>
-                            </ul>
-                          </li>
-                          <li>
                             <Link to="/contact">Contact</Link>
                           </li>
                         </ul>
@@ -327,30 +175,7 @@ class Navbar extends Component {
                   </div>
                 </div>
                 <div className="col ltn__header-options ltn__header-options-2 mb-sm-20">
-                  {/* header-search-1 */}
-                  <div className="header-search-wrap">
-                    <div className="header-search-1">
-                      <div className="search-icon">
-                        <i className="icon-search for-search-show" />
-                        <i className="icon-cancel  for-search-close" />
-                      </div>
-                    </div>
-                    <div className="header-search-1-form">
-                      <form id="#" method="get" action="#">
-                        <input
-                          type="text"
-                          name="search"
-                          defaultValue
-                          placeholder="Search here..."
-                        />
-                        <button type="submit">
-                          <span>
-                            <i className="icon-search" />
-                          </span>
-                        </button>
-                      </form>
-                    </div>
-                  </div>
+                  
                   {/* user-menu */}
                   <div className="ltn__drop-menu user-menu">
                     <ul>
@@ -383,16 +208,7 @@ class Navbar extends Component {
                       </li>
                     </ul>
                   </div>
-                  {/* mini-cart */}
-                  <div className="mini-cart-icon">
-                    <a
-                      href="#ltn__utilize-cart-menu"
-                      className="ltn__utilize-toggle"
-                    >
-                      <i className="icon-shopping-cart"></i>
-                      <sup></sup>
-                    </a>
-                  </div>
+                  
                   {/* mini-cart */}
                   {/* Mobile Menu Button */}
                   <div className="mobile-menu-toggle d-xl-none">
@@ -452,30 +268,7 @@ class Navbar extends Component {
                       <Link to="/about">About</Link>
                     </li>
                     <li>
-                      <Link to="/ChatGemini">Chat assistant</Link>
-                    </li>
-                    <li>
                       <Link to="/service">Services</Link>
-                    </li>
-
-                    <li>
-                      <Link to="/service-details">Service Details</Link>
-                    </li>
-                    <li>
-                      <Link to="/portfolio">Portfolio</Link>
-                    </li>
-
-                    <li>
-                      <Link to="/portfolio-details">Portfolio Details</Link>
-                    </li>
-                    <li>
-                      <Link to="/team">Team</Link>
-                    </li>
-                    <li>
-                      <Link to="/team-details">Team Details</Link>
-                    </li>
-                    <li>
-                      <Link to="/faq">FAQ</Link>
                     </li>
                     <li>
                       <Link to="/location">Google Map Locations</Link>
@@ -483,24 +276,8 @@ class Navbar extends Component {
                   </ul>
                 </li>
                 <li>
-                  <Link to="/shop-grid">Shop</Link>
+                  <Link to="/">Detail</Link>
                   <ul className="sub-menu">
-                    <li>
-                      <Link to="/shop">Shop</Link>
-                    </li>
-                    <li>
-                      <Link to="/shop-grid">Shop Grid</Link>
-                    </li>
-
-                    <li>
-                      <Link to="/product-details">Shop Details</Link>
-                    </li>
-                    <li>
-                      <Link to="/cart">Cart</Link>
-                    </li>
-                    <li>
-                      <Link to="/checkout">Checkout</Link>
-                    </li>
                     <li>
                       <Link to="/my-account">My Account</Link>
                     </li>
@@ -509,14 +286,6 @@ class Navbar extends Component {
                     </li>
                     <li>
                       <Link to="/register">Register</Link>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <Link to="/blog-grid">News</Link>
-                  <ul className="sub-menu">
-                    <li>
-                      <Link to="/blog-right-sidebar">News</Link>
                     </li>
                   </ul>
                 </li>
@@ -530,39 +299,12 @@ class Navbar extends Component {
                       <Link to="/service">Services</Link>
                     </li>
                     <li>
-                      <Link to="/service-details">Service Details</Link>
-                    </li>
-
-                    <li>
-                      <Link to="/portfolio-details">Portfolio Details</Link>
-                    </li>
-                    <li>
-                      <Link to="/team">Team</Link>
-                    </li>
-                    <li>
-                      <Link to="/team-details">Team Details</Link>
-                    </li>
-                    <li>
-                      <Link to="/faq">FAQ</Link>
-                    </li>
-                    <li>
-                      <Link to="/history">History</Link>
-                    </li>
-                    <li>
-                      <Link to="/add-listing">Add Listing</Link>
-                    </li>
-                    <li>
                       <Link to="/locations">Google Map Locations</Link>
-                    </li>
-                    <li>
-                      <Link to="/404">404</Link>
                     </li>
                     <li>
                       <Link to="/contact">Contact</Link>
                     </li>
-                    <li>
-                      <Link to="/coming-soon">Coming Soon</Link>
-                    </li>
+                  
                   </ul>
                 </li>
                 <li>
@@ -580,24 +322,7 @@ class Navbar extends Component {
                     My Account
                   </Link>
                 </li>
-                <li>
-                  <Link to="/wishlist" title="Wishlist">
-                    <span className="utilize-btn-icon">
-                      <i className="far fa-heart" />
-                      
-                    </span>
-                    Wishlist
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/cart" title="Shoping Cart">
-                    <span className="utilize-btn-icon">
-                      <i className="fas fa-shopping-cart" />
-                      
-                    </span>
-                    Shoping Cart
-                  </Link>
-                </li>
+               
               </ul>
             </div>
             <div className="ltn__social-media-2">
@@ -626,34 +351,6 @@ class Navbar extends Component {
             </div>
           </div>
         </div>
-
-        {/* Utilize Cart Menu Start */}
-        <div
-          id="ltn__utilize-cart-menu"
-          className="ltn__utilize ltn__utilize-cart-menu"
-        >
-          <div className="ltn__utilize-menu-inner ltn__scrollbar">
-            <div className="ltn__utilize-menu-head">
-              <span className="ltn__utilize-menu-title">Cart</span>
-              <button className="ltn__utilize-close">×</button>
-            </div>
-            
-            <div>
-              <CartV1 />
-            </div>
-            <div className="mini-cart-footer">
-              <div className="btn-wrapper go-top">
-                <Link to="/cart" className="theme-btn-1 btn btn-effect-1">
-                  View Cart
-                </Link>
-                <Link to="/checkout" className="theme-btn-2 btn btn-effect-2">
-                  Checkout
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Utilize Cart Menu End */}
       </div>
     );
   }

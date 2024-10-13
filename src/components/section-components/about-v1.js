@@ -13,26 +13,11 @@ class AboutV1 extends Component {
             <div className="col-lg-6 align-self-center">
               <div className="about-us-img-wrap about-img-left">
                 <img
-                  src={
-                    "https://img.freepik.com/free-photo/three-dimensional-house-model_23-2151003968.jpg?size=626&ext=jpg&ga=GA1.1.1141335507.1719360000&semt=ais_user"
-                  }
+                  src="https://media.istockphoto.com/id/1096860416/photo/accountant-working-with-us-tax-forms.jpg?s=612x612&w=0&k=20&c=iTeEa7-FrsAdM2DGPxnx_T7dyoW9MKK_4hauIEFNTAo="
                   alt="About Us Image"
                 />
                 <div className="about-us-img-info about-us-img-info-2 about-us-img-info-3">
                   <div className="ltn__video-img ltn__animation-pulse1">
-                    <img
-                      src={
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYz8zEAFyjZKTNeQW-MRagzdrD-bTFpArsiA&s"
-                      }
-                      alt="video popup bg image"
-                    />
-                    <a
-                      className="ltn__video-icon-2 ltn__video-icon-2-border---"
-                      href="https://www.youtube.com/embed/83oW09FiZ9k?si=odOd0gS8QR8f2tpq"
-                      data-rel="lightcase:myCollection"
-                    >
-                      <i className="fa fa-play" />
-                    </a>
                   </div>
                 </div>
               </div>
@@ -44,13 +29,9 @@ class AboutV1 extends Component {
                     About Us
                   </h6>
                   <h1 className="section-title">
-                    The Leading Real Estate Rental Marketplace<span>.</span>
+                  <span></span>
                   </h1>
-                  <p>
-                    Over 39,000 people work for us in more than 70 countries all
-                    over the This breadth of global coverage, combined with
-                    specialist services
-                  </p>
+                  
                 </div>
                 <ul className="ltn__list-item-half clearfix">
                   <li>
@@ -71,10 +52,7 @@ class AboutV1 extends Component {
                   </li>
                 </ul>
                 <div className="ltn__callout bg-overlay-theme-05  mt-30">
-                  <p>
-                    "Enimad minim veniam quis nostrud exercitation <br />
-                    llamco laboris. Lorem ipsum dolor sit amet"{" "}
-                  </p>
+                  
                 </div>
                 <div className="btn-wrapper animated go-top">
                   <Link to="/service" className="theme-btn-1 btn btn-effect-1">

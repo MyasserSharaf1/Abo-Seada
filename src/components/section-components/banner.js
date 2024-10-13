@@ -27,20 +27,17 @@ class Banner extends Component {
                             <i className="fa fa-play" />
                           </a>
                         </div>
-                        <h6 className="slide-sub-title white-color--- animated">
+                        <h3 className="slide-sub-title white-color--- animated">
                           <span>
-                            <i className="fas fa-home" />
+                            
                           </span>{" "}
-                          Real Estate Agency
-                        </h6>
-                        <h1 className="slide-title animated ">
-                          Find Your Dream <br /> House By Us
-                        </h1>
+                          Abo Seada Office
+                        </h3>
+                        <h3 className="slide-title animated ">
+                        Expert Auditing,<br/> Simplified Taxation,<br/> Accurate Accounting
+                        </h3>
                         <div className="slide-brief animated">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore.
-                          </p>
+                         
                         </div>
                         <div className="btn-wrapper animated ">
                           <Link
@@ -49,13 +46,7 @@ class Banner extends Component {
                           >
                             Make An Enquiry
                           </Link>
-                          <a
-                            className="ltn__video-play-btn bg-white"
-                            href="https://www.youtube.com/embed/83oW09FiZ9k?si=JUljRFe6bd-sZVgn"
-                            data-rel="lightcase"
-                          >
-                            <i className="icon-play  ltn__secondary-color" />
-                          </a>
+                          
                         </div>
                       </div>
                     </div>
@@ -80,21 +71,17 @@ class Banner extends Component {
                   <div className="col-lg-12 align-self-center">
                     <div className="slide-item-info">
                       <div className="slide-item-info-inner ltn__slide-animation">
-                        <h6 className="slide-sub-title white-color--- animated">
+                        <h3 className="slide-sub-title white-color--- animated">
                           <span>
-                            <i className="fas fa-home" />
+                            
                           </span>{" "}
-                          Real Estate Agency
-                        </h6>
-                        <h1 className="slide-title animated ">
-                          The Right Place <br />
-                          of House Finding
-                        </h1>
+                          Abo Seada Office
+                        </h3>
+                        <h className="slide-title animated ">
+                        Navigating Taxes,<br/> Auditing Success
+                        </h>
                         <div className="slide-brief animated">
-                          <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit, sed do eiusmod tempor incididunt ut labore.
-                          </p>
+                          
                         </div>
                         <div className="btn-wrapper animated">
                           <Link
