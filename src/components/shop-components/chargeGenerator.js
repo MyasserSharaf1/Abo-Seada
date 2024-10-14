@@ -31,6 +31,13 @@ const ChargeGenerator = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    fetchData();
+
+    onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+  }, []);
   const fetchData = async () => {
     try {
       const currentUser = auth.currentUser;
@@ -69,13 +76,7 @@ const ChargeGenerator = () => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-
-    onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
-  }, []);
+  
   // const location = useLocation();
   // const { totalPrice } = location.state || { totalPrice: 0 };
 
