@@ -24,8 +24,7 @@ const BlogList = () => {
       });
 
     // Load Google Maps script
-    loadScript(`https://maps.googleapis.com/maps/api/js?key=AIzaSyAUiJE6e5OnFUXcHLr9EbZB0Wh5UvQ-i-E&callback=initMap`);
-    window.initMap = initMap;
+    
   }, []);
 
   const initMap = () => {

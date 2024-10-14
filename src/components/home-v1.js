@@ -1,6 +1,5 @@
 import React from 'react';
 import Navbar from './global-components/navbar';
-
 import Banner from './section-components/banner';
 import SearchForm from './section-components/search-form';
 import Aboutv1 from './section-components/about-v1';
@@ -26,6 +25,7 @@ const Home_V1 = () => {
         
         
         <Footer />
+        
     </div>
 }
 
