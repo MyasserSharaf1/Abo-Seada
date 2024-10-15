@@ -43,12 +43,12 @@ class Navbar extends Component {
                     <ul>
                       <li>
                         <a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you">
-                          <i className="icon-mail" /> info@Askun.com
+                          <i className="icon-mail" /> info@AboSeada.com
                         </a>
                       </li>
                       <li>
                         <a href="locations.html">
-                          <i className="icon-placeholder" />5 AAST Sheraton
+                          <i className="icon-placeholder" />Nasr City cairo egypt
                         </a>
                       </li>
                     </ul>

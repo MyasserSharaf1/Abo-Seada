@@ -15,11 +15,11 @@ class CallToActonV1 extends Component {
 			      <div className="col-lg-12">
 			        <div className="call-to-action-inner call-to-action-inner-6 ltn__secondary-bg position-relative text-center---">
 			          <div className="coll-to-info text-color-white">
-			            <h1>Looking for a dream home?</h1>
-			            <p>We can help you realize your dream of a new home</p>
+			            <h1>Contact Us </h1>
+			            <h3>Let us help you navigate your financial journey</h3>
 			          </div>
 			          <div className="btn-wrapper go-top">
-			            <Link className="btn btn-effect-3 btn-white" to="/contact">Explore Properties <i className="icon-next" /></Link>
+			            <Link className="btn btn-effect-3 btn-white" to="/contact"><i className="icon-next" /></Link>
 			          </div>
 			        </div>
 			      </div>

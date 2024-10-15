@@ -13,7 +13,6 @@ const Service_V1 = () => {
         <PageHeader headertitle="What We Do" subheader="Service" />
         <AboutV5 />
         <ServiceV1 />
-        <BlogSlider sectionClass="pt-120" />
         <CallToActionV1 />
         <Footer />
     </div>

@@ -19,13 +19,7 @@ class Banner extends Component {
                     <div className="slide-item-info">
                       <div className="slide-item-info-inner ltn__slide-animation">
                         <div className="slide-video mb-50 d-none">
-                          <a
-                            className="ltn__video-icon-2 ltn__video-icon-2-border"
-                            href="https://www.youtube.com/embed/83oW09FiZ9k?si=JUljRFe6bd-sZVgn"
-                            data-rel="lightcase:myCollection"
-                          >
-                            <i className="fa fa-play" />
-                          </a>
+                          
                         </div>
                         <h3 className="slide-sub-title white-color--- animated">
                           <span>
@@ -53,7 +47,7 @@ class Banner extends Component {
                     <div className="slide-item-img">
                       <img
                         src={
-                          "https://www.propertyfinder.eg/blog/wp-content/uploads/2018/01/UIA0lUqvlPMy9ghblSw2xHcHK3gSxB-1.jpg"
+                          "https://i.etsystatic.com/18578543/r/il/db4800/2632706125/il_fullxfull.2632706125_tw3o.jpg"
                         }
                         alt="#"
                       />
@@ -102,7 +96,7 @@ class Banner extends Component {
                     <div className="slide-item-img slide-img-left">
                       <img
                         src={
-                          "https://golfportomarina.com/wp-content/uploads/2021/07/the-city-of-odyssia-compound.jpg"
+                          "https://i.etsystatic.com/10420830/r/il/479eb3/5787057379/il_fullxfull.5787057379_dggr.jpg"
                         }
                         alt="#"
                       />
