@@ -50,7 +50,7 @@ class Footer_v1 extends Component {
                       <img
                         width={170}
                         height={150}
-                        src={publicUrl + "assets/img/logo-2.png"}
+                        src={publicUrl + "assets/img/logo.jpg"}
                         alt="Logo"
                       />
                     </div>

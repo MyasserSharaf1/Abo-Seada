@@ -110,7 +110,7 @@ class Navbar extends Component {
                     <div className="site-logo go-top">
                       <Link to="/">
                         <img
-                          src={publicUrl + "assets/img/logo.png"}
+                          src={publicUrl + "assets/img/logo.jpg"}
                           alt="Logo"
                           width={170}
                           height={150}
