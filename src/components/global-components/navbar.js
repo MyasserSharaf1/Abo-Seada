@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Social from "../section-components/social";
-import CartV1 from "../shop-components/cart";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 class Navbar extends Component {
@@ -42,9 +41,10 @@ class Navbar extends Component {
                   <div className="ltn__top-bar-menu">
                     <ul>
                       <li>
-                        <a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you">
-                          <i className="icon-mail" /> info@AboSeada.com
-                        </a>
+                      <a href="mailto:mohamed.aboseada@offices.net?Subject=Flower%20greetings%20to%20you">
+  <i className="icon-mail" /> mohamed.aboseada@offices.net
+</a>
+
                       </li>
                       <li>
                         <a href="locations.html">

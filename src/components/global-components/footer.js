@@ -71,13 +71,25 @@ class Footer_v1 extends Component {
                       </li>
                       <li>
                         <div className="footer-address-icon">
-                          <i className="icon-call" />
+                          
                         </div>
                         <div className="footer-address-info">
-                          <p>
-                            <a href="tel:+0123-456789">+0123-456789</a>
-                          </p>
-                        </div>
+  <p>
+    <i className="icon-call" />
+    <a href="tel:+01120761611">01120761611</a>
+  </p>
+  <p>
+    <i className="icon-call" />
+    <a href="tel:+01092952221">01092952221</a>
+  </p>
+  <p>
+    <i className="icon-call" />
+    <a href="tel:+01028998815">01028998815</a>
+  </p>
+</div>
+
+
+
                       </li>
                       <li>
                         <div className="footer-address-icon">
@@ -85,9 +97,10 @@ class Footer_v1 extends Component {
                         </div>
                         <div className="footer-address-info">
                           <p>
-                            <a href="mailto:example@example.com">
-                              example@example.com
-                            </a>
+                          <a href="mailto:mohamed.aboseada@offices.net?Subject=Flower%20greetings%20to%20you">
+   mohamed.aboseada@offices.net
+</a>
+
                           </p>
                         </div>
                       </li>

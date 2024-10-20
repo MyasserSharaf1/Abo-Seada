@@ -29,14 +29,11 @@ const ServiceDetails = () => {
           </div>
           <div className="col-lg-4">
             <aside className="sidebar-area ltn__right-sidebar">
-              {/* Menu Widget */}
               <div className="widget-2 ltn__menu-widget ltn__menu-widget-2 text-uppercase">
                 <ul className="go-top">
                   <li><Link to="/service">Back to Services Page <span><i className="fas fa-arrow-right" /></span></Link></li>
                  </ul>
               </div>
-              {/* Banner Widget */}
-             
             </aside>
           </div>
         </div>
