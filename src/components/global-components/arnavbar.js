@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Social from "../section-components/social";
-import {  getAuth,onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 class Navbar extends Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
-    
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -32,7 +31,7 @@ class Navbar extends Component {
   render() {
     let publicUrl = process.env.PUBLIC_URL + "/";
     return (
-      <div>
+      <div dir="rtl"> {/* Set the text direction to right-to-left */}
         <header className="ltn__header-area ltn__header-5 ltn__header-transparent--- gradient-color-4---">
           <div className="ltn__header-top-area section-bg-6 top-area-color-white---">
             <div className="container">
@@ -41,14 +40,13 @@ class Navbar extends Component {
                   <div className="ltn__top-bar-menu">
                     <ul>
                       <li>
-                      <a href="mailto:mohamed.aboseada@offices.net?Subject=Flower%20greetings%20to%20you">
-  <i className="icon-mail" /> mohamed.aboseada@offices.net
-</a>
-
+                        <a href="mailto:mohamed.aboseada@offices.net?Subject=Flower%20greetings%20to%20you">
+                          <i className="icon-mail" /> mohamed.aboseada@offices.net
+                        </a>
                       </li>
                       <li>
                         <a href="locations.html">
-                          <i className="icon-placeholder" />Nasr City cairo egypt
+                          <i className="icon-placeholder" /> مدينة نصر، القاهرة، مصر
                         </a>
                       </li>
                     </ul>
@@ -59,27 +57,23 @@ class Navbar extends Component {
                     <div className="ltn__top-bar-menu">
                       <ul>
                         <li className="d-none">
-                          {/* ltn__language-menu */}
                           <div className="ltn__drop-menu ltn__currency-menu ltn__language-menu">
                             <ul>
                               <li>
                                 <a href="#" className="dropdown-toggle">
                                   <span className="active-currency">
-                                    English
+                                    العربية
                                   </span>
                                 </a>
                                 <ul>
                                   <li>
-                                    <Link to="#">Arabic</Link>
+                                    <Link to="#">English</Link>
                                   </li>
                                   <li>
                                     <Link to="#">Bengali</Link>
                                   </li>
                                   <li>
                                     <Link to="#">Chinese</Link>
-                                  </li>
-                                  <li>
-                                    <Link to="#">English</Link>
                                   </li>
                                   <li>
                                     <Link to="#">French</Link>
@@ -108,7 +102,7 @@ class Navbar extends Component {
                 <div className="col">
                   <div className="site-logo-wrap ">
                     <div className="site-logo go-top">
-                      <Link to="/">
+                      <Link to="/arhome-v1">
                         <img
                           src={publicUrl + "assets/img/logo2.jpg"}
                           alt="Logo"
@@ -122,7 +116,7 @@ class Navbar extends Component {
                         <i className="icon-call" />
                       </div>
                       <div className="get-support-info">
-                        <h6>Get Support</h6>
+                        <h6>احصل على الدعم</h6>
                         <h4>
                           <a href="tel:+123456789">123-456-789-10</a>
                         </h4>
@@ -136,38 +130,38 @@ class Navbar extends Component {
                       <div className="ltn__main-menu go-top">
                         <ul>
                           <li>
-                            <Link to="/">Home</Link>
+                            <Link to="/arhome-v1">الرئيسية</Link>
                           </li>
                           <li>
-                            <Link to="/about">About</Link>
+                            <Link to="/arabout">عن الشركة</Link>
                             <ul>
                               <li>
-                                <Link to="/about">About</Link>
+                                <Link to="/arabout">عن الشركة</Link>
                               </li>
                               <li>
-                                <Link to="/service">Services</Link>
+                                <Link to="/arservice">الخدمات</Link>
                               </li>
                               <li>
-                                <Link to="/location">Google Map Locations</Link>
+                                <Link to="/location">مواقع Google Map</Link>
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <Link to="/">Detail</Link>
+                            <Link to="/">تفاصيل</Link>
                             <ul>
                               <li>
-                                <Link to="/my-account">My Account</Link>
+                                <Link to="/my-account">حسابي</Link>
                               </li>
                               <li>
-                                <Link to="/login">Sign in</Link>
+                                <Link to="/login">تسجيل الدخول</Link>
                               </li>
                               <li>
-                                <Link to="/register">Register</Link>
+                                <Link to="/register">تسجيل</Link>
                               </li>
                             </ul>
                           </li>
                           <li>
-                            <Link to="/contact">Contact</Link>
+                            <Link to="/contact">اتصل بنا</Link>
                           </li>
                         </ul>
                       </div>
@@ -175,8 +169,6 @@ class Navbar extends Component {
                   </div>
                 </div>
                 <div className="col ltn__header-options ltn__header-options-2 mb-sm-20">
-                  
-                  {/* user-menu */}
                   <div className="ltn__drop-menu user-menu">
                     <ul>
                       <li>
@@ -184,33 +176,30 @@ class Navbar extends Component {
                           <i className="icon-user" />
                         </Link>
                         <ul className="go-top">
-                        {this.state.isAuthenticated ? (
-                <>
-                  <li>
-                    <span>{this.state.displayName}</span>
-                  </li>
-                  <li>
-                    <Link to="/my-account">My Account</Link>
-                  </li>
-                  {/* Add more authenticated user options as needed */}
-                </>
-              ) : (
-                <>
-                  <li>
-                    <Link to="/login">Sign in</Link>
-                  </li>
-                  <li>
-                    <Link to="/register">Register</Link>
-                  </li>
-                </>
-              )}
+                          {this.state.isAuthenticated ? (
+                            <>
+                              <li>
+                                <span>{this.state.displayName}</span>
+                              </li>
+                              <li>
+                                <Link to="/my-account">حسابي</Link>
+                              </li>
+                            </>
+                          ) : (
+                            <>
+                              <li>
+                                <Link to="/login">تسجيل الدخول</Link>
+                              </li>
+                              <li>
+                                <Link to="/register">تسجيل</Link>
+                              </li>
+                            </>
+                          )}
                         </ul>
                       </li>
                     </ul>
                   </div>
                   
-                  {/* mini-cart */}
-                  {/* Mobile Menu Button */}
                   <div className="mobile-menu-toggle d-xl-none">
                     <a
                       href="#ltn__utilize-mobile-menu"
@@ -242,7 +231,7 @@ class Navbar extends Component {
           <div className="ltn__utilize-menu-inner ltn__scrollbar">
             <div className="ltn__utilize-menu-head">
               <div className="site-logo">
-                <Link to="/">
+                <Link to="/arhome-v1">
                   <img src={publicUrl + "assets/img/logo.png"} alt="Logo" />
                 </Link>
               </div>
@@ -250,7 +239,7 @@ class Navbar extends Component {
             </div>
             <div className="ltn__utilize-menu-search-form">
               <form action={"#"}>
-                <input type="text" placeholder="Search..." />
+                <input type="text" placeholder="بحث..." />
                 <button>
                   <i className="fas fa-search" />
                 </button>
@@ -259,93 +248,38 @@ class Navbar extends Component {
             <div className="ltn__utilize-menu">
               <ul>
                 <li>
-                  <a href="#">Home</a>
+                  <a href="#">الرئيسية</a>
                 </li>
                 <li>
-                  <Link to="/about">About</Link>
+                  <Link to="/arabout">عن الشركة</Link>
                   <ul className="sub-menu">
                     <li>
-                      <Link to="/about">About</Link>
+                      <Link to="/arabout">عن الشركة</Link>
                     </li>
                     <li>
-                      <Link to="/service">Services</Link>
+                      <Link to="/arservice">الخدمات</Link>
                     </li>
                     <li>
-                      <Link to="/location">Google Map Locations</Link>
+                      <Link to="/location">مواقع Google Map</Link>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <Link to="/">Detail</Link>
+                  <Link to="/arhome-v1">تفاصيل</Link>
                   <ul className="sub-menu">
                     <li>
-                      <Link to="/my-account">My Account</Link>
+                      <Link to="/my-account">حسابي</Link>
                     </li>
                     <li>
-                      <Link to="/login">Sign in</Link>
+                      <Link to="/login">تسجيل الدخول</Link>
                     </li>
                     <li>
-                      <Link to="/register">Register</Link>
+                      <Link to="/register">تسجيل</Link>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <Link to="#">Pages</Link>
-                  <ul className="sub-menu">
-                    <li>
-                      <Link to="/about">About</Link>
-                    </li>
-                    <li>
-                      <Link to="/service">Services</Link>
-                    </li>
-                    <li>
-                      <Link to="/locations">Google Map Locations</Link>
-                    </li>
-                    <li>
-                      <Link to="/contact">Contact</Link>
-                    </li>
-                  
-                  </ul>
-                </li>
-                <li>
-                  <Link to="/contact">Contact</Link>
-                </li>
-              </ul>
-            </div>
-            <div className="ltn__utilize-buttons ltn__utilize-buttons-2">
-              <ul>
-                <li>
-                  <Link to="/my-account" title="My Account">
-                    <span className="utilize-btn-icon">
-                      <i className="far fa-user" />
-                    </span>
-                    My Account
-                  </Link>
-                </li>
-               
-              </ul>
-            </div>
-            <div className="ltn__social-media-2">
-              <ul>
-                <li>
-                  <a href="#" title="Facebook">
-                    <i className="fab fa-facebook-f" />
-                  </a>
-                </li>
-                <li>
-                  <a href="#" title="Twitter">
-                    <i className="fab fa-twitter" />
-                  </a>
-                </li>
-                <li>
-                  <a href="#" title="Linkedin">
-                    <i className="fab fa-linkedin" />
-                  </a>
-                </li>
-                <li>
-                  <a href="#" title="Instagram">
-                    <i className="fab fa-instagram" />
-                  </a>
+                  <Link to="/contact">اتصل بنا</Link>
                 </li>
               </ul>
             </div>

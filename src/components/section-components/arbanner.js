@@ -21,9 +21,9 @@ class Banner extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      officename: "",
-      slogan_1: "",
-      slogan_2: "",
+      arname: "",
+      arslogan_1: "",
+      arslogan_2: "",
       // Other state variables if needed
     };
   }
@@ -34,9 +34,9 @@ class Banner extends Component {
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         this.setState({
-          officename: data.officename || "Default Office Name",
-          slogan_1: data.slogan_1 || "Default Slogan 1",
-          slogan_2: data.slogan_2 || "Default Slogan 2",
+            arname: data.arname || "اسم المكتب الافتراضي",
+            arslogan_1: data.arslogan_1 || "شعار 1 الافتراضي",
+          arslogan_2: data.arslogan_2 || "شعار 2 الافتراضي",
         });
       });
     } catch (error) {
@@ -46,8 +46,8 @@ class Banner extends Component {
 
   render() {
     let publicUrl = process.env.PUBLIC_URL + "/";
-    let imagealt = "image";
-    const { officename, slogan_1, slogan_2 } = this.state; // Use correct destructured names
+    let imagealt = "صورة";
+    const { arname, arslogan_1, arslogan_2 } = this.state; // Use correct destructured names
 
     return (
       <div className="ltn__slider-area ltn__slider-3 section-bg-1 go-top">
@@ -62,18 +62,18 @@ class Banner extends Component {
                       <div className="slide-item-info-inner ltn__slide-animation">
                         <div className="slide-video mb-50 d-none"></div>
                         <h3 className="slide-sub-title white-color--- animated">
-                          <span></span> {officename} {/* Use state variable */}
+                          <span></span> {arname} {/* Use state variable */}
                         </h3>
-                        <h3 className="slide-title animated ">
-                          {slogan_1} {/* Use state variable */}
-                        </h3>
+                        <h4 className="slide-title animated ">
+                          {arslogan_1} {/* Use state variable */}
+                        </h4>
                         <div className="slide-brief animated"></div>
                         <div className="btn-wrapper animated ">
                           <Link
                             to="/about"
                             className="theme-btn-1 btn btn-effect-1 go-top"
                           >
-                            Make An Enquiry
+                            قدم استفسار
                           </Link>
                         </div>
                       </div>
@@ -100,24 +100,24 @@ class Banner extends Component {
                     <div className="slide-item-info">
                       <div className="slide-item-info-inner ltn__slide-animation">
                         <h3 className="slide-sub-title white-color--- animated">
-                          <span></span> {officename} {/* Use state variable */}
+                          <span></span> {arname} {/* Use state variable */}
                         </h3>
-                        <h3 className="slide-title animated ">
-                          {slogan_2} {/* Use state variable */}
-                        </h3>
+                        <h4 className="slide-title animated ">
+                          {arslogan_2} {/* Use state variable */}
+                        </h4>
                         <div className="slide-brief animated"></div>
                         <div className="btn-wrapper animated">
                           <Link
                             to="/service"
                             className="theme-btn-1 btn btn-effect-1"
                           >
-                            OUR SERVICES
+                            خدماتنا
                           </Link>
                           <Link
                             to="/about"
                             className="btn btn-transparent btn-effect-3"
                           >
-                            LEARN MORE
+                            اعرف المزيد
                           </Link>
                         </div>
                       </div>

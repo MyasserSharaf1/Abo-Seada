@@ -6,15 +6,15 @@ import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBu4EgPTNk8ZW3VwJ3p7_J42O0coyrRIyM",
-  authDomain: "askundb.firebaseapp.com",
-  projectId: "askundb",
-  storageBucket: "askundb.appspot.com",
-  messagingSenderId: "873898080051",
-  appId: "1:873898080051:web:0c24b0114fcd9f4d1c3046"
+  apiKey: "AIzaSyBsicCTmMLWPMSyHxOfMnr_SVQ8m-rCoUM",
+  authDomain: "abu-seada-office.firebaseapp.com",
+  projectId: "abu-seada-office",
+  storageBucket: "abu-seada-office.appspot.com",
+  messagingSenderId: "567437272231",
+  appId: "1:567437272231:web:a444f7e762df0f69c8a782"
 };
 
-// Initialize Firebase app
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 // Get auth instance and Firestore instance

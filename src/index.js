@@ -7,13 +7,16 @@ import {
   Switch,
 } from "react-router-dom";
 import HomeV1 from "./components/home-v1";
+import arHomeV1 from "./components/arhome-v1";
 
 
 import About from "./components/about";
+import arAbout from "./components/arabout";
 import Service from "./components/service";
+import arService from "./components/arservice";
 import ServiceDetails from "./components/service-details";
-import Team from "./components/team";
-import TeamDetails from "./components/team-details";
+import arServiceDetails from "./components/arsevicedetails";
+
 
 import Error from "./components/404";
 import Location from "./components/location";
@@ -39,12 +42,14 @@ class Root extends Component {
           <div>
             <Switch>
               <Route exact path="/" component={HomeV1} />
+              <Route exact path="/arhome-v1" component={arHomeV1} />
             
               <Route path="/about" component={About} />
+              <Route path="/arabout" component={arAbout} />
               <Route path="/service" component={Service} />
+              <Route path="/arservice" component={arService} />
               <Route path="/service-details" component={ServiceDetails} />
-              <Route path="/team" component={Team} />
-              <Route path="/team-details/:property" component={TeamDetails} />
+              <Route path="/arservice-details" component={arServiceDetails} />
               <Route path="/404" component={Error} />
               <Route path="/location" component={Location} />
               <Route path="/contact" component={Contact} />

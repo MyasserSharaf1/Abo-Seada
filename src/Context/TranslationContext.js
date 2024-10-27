@@ -1,66 +1,21 @@
-// src/context/TranslationContext.js
-import React, { createContext, useState } from 'react';
+// src/contexts/LanguageContext.js
+import React, { useState, createContext } from 'react';
 
-const TranslationContext = createContext();
+// Create a context
+export const LanguageContext = createContext();
 
-export const TranslationProvider = ({ children }) => {
-  const [language, setLanguage] = useState('en');
-  const [translations, setTranslations] = useState({});
+const LanguageProvider = ({ children }) => {
+    const [language, setLanguage] = useState('ar'); // Default language is Arabic
 
-  const translateText = async (text) => {
-    const targetLanguage = language === 'en' ? 'ar' : 'en';
-    try {
-      const response = await fetch('https://libretranslate.de/translate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          q: text,
-          source: 'en',
-          target: targetLanguage,
-          format: 'text'
-        })
-      });
+    const toggleLanguage = () => {
+        setLanguage((prevLang) => (prevLang === 'ar' ? 'en' : 'ar'));
+    };
 
-      const data = await response.json();
-      return data.translatedText;
-    } catch (error) {
-      console.error("Error translating text:", error);
-      return text;  // return the original text on error
-    }
-  };
-
-  const toggleLanguage = async () => {
-    const newLanguage = language === 'en' ? 'ar' : 'en';
-    setLanguage(newLanguage);
-
-    // Translate existing translations
-    const translatedTexts = await Promise.all(
-      Object.keys(translations).map(async (key) => {
-        const translated = await translateText(translations[key]);
-        return { [key]: translated };
-      })
+    return (
+        <LanguageContext.Provider value={{ language, toggleLanguage }}>
+            {children}
+        </LanguageContext.Provider>
     );
-    
-    const updatedTranslations = translatedTexts.reduce((acc, cur) => ({ ...acc, ...cur }), {});
-    setTranslations(updatedTranslations);
-  };
-
-  const translateContent = async (key, text) => {
-    if (!translations[key]) {
-      const translated = await translateText(text);
-      setTranslations((prev) => ({ ...prev, [key]: translated }));
-      return translated;
-    }
-    return translations[key];
-  };
-
-  return (
-    <TranslationContext.Provider value={{ language, toggleLanguage, translateContent }}>
-      {children}
-    </TranslationContext.Provider>
-  );
 };
 
-export default TranslationContext;
+export default LanguageProvider;

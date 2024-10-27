@@ -44,10 +44,10 @@ class Testimonial extends Component {
   render() {
     const { feedbacks, loading } = this.state;
     let publicUrl = process.env.PUBLIC_URL + '/';
-    let imagealt = 'image';
+    let imagealt = 'صورة';
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <div>جاري التحميل...</div>;
     }
 
     return (
@@ -60,16 +60,16 @@ class Testimonial extends Component {
             <div className="col-lg-12">
               <div className="section-title-area ltn__section-title-2--- text-center">
                 <h6 className="section-subtitle section-subtitle-2 ltn__secondary-color">
-                  Our Testimonial
+                  شهادات العملاء
                 </h6>
-                <h1 className="section-title">Clients Feedback</h1>
+                <h1 className="section-title">آراء العملاء</h1>
               </div>
             </div>
           </div>
           <div className="row ltn__testimonial-slider-5-active slick-arrow-1">
             {feedbacks.length === 0 ? (
               <div className="col-lg-12 text-center">
-                <p>No feedback found</p>
+                <p>لا توجد آراء متاحة</p>
               </div>
             ) : (
               feedbacks.map((feedback, index) => (
@@ -90,7 +90,7 @@ class Testimonial extends Component {
                         <div className="ltn__testimoni-name-designation">
                           <h5>{feedback.name}</h5>
                           <label>{feedback.email}</label>
-                          <label>{feedback.rate} Stars</label>
+                          <label>{feedback.rate} نجوم</label>
                         </div>
                       </div>
                     </div>

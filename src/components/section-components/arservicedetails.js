@@ -17,8 +17,8 @@ const ServiceDetails = () => {
               <div className="ltn__blog-img">
                 <img src={publicUrl + "assets/img/service/21.jpg"} alt="Image" />
               </div>
-              <h1>{service ? service.name : 'Service Name'}</h1>
-              <p>{service ? service.detailed_en : 'Service description goes here. If no description is found, this default text will be displayed.'}</p>
+              <h1>{service ? service.arname : 'اسم الخدمة'}</h1>
+              <p>{service ? service.detailed_ar : 'وصف الخدمة هنا. إذا لم يتم العثور على وصف، سيتم عرض هذا النص الافتراضي.'}</p>
               <div className="row">
                 
               </div>
@@ -31,7 +31,7 @@ const ServiceDetails = () => {
             <aside className="sidebar-area ltn__right-sidebar">
               <div className="widget-2 ltn__menu-widget ltn__menu-widget-2 text-uppercase">
                 <ul className="go-top">
-                  <li><Link to="/service">Back to Services Page <span><i className="fas fa-arrow-right" /></span></Link></li>
+                  <li><Link to="/arservice">العودة إلى صفحة الخدمات <span><i className="fas fa-arrow-right" /></span></Link></li>
                  </ul>
               </div>
             </aside>

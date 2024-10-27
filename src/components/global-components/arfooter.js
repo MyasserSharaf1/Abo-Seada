@@ -36,11 +36,11 @@ class Footer_v1 extends Component {
 
   render() {
     let publicUrl = process.env.PUBLIC_URL + "/";
-    let imgattr = "Footer logo";
+    let imgattr = "شعار الفوتر";
 
     return (
       <footer className="ltn__footer-area bg-black ">
-        <div className="footer-top-area bg-black  section-bg-2 plr--5">
+        <div className="footer-top-area bg-black section-bg-2 plr--5">
           <div className="container-fluid">
             <div className="row">
               <div className="col-xl-3 col-md-6 col-sm-6 col-12">
@@ -51,13 +51,13 @@ class Footer_v1 extends Component {
                         width={170}
                         height={150}
                         src={publicUrl + "assets/img/logo1.jpg"}
-                        alt="Logo"
+                        alt="شعار"
                       />
                     </div>
                   </div>
                   <p>
-                    Lorem Ipsum is simply dummy text of the and typesetting
-                    industry. Lorem Ipsum is dummy text of the printing.
+                    لوريم إيبسوم هو نص وهمي يستخدم في صناعة الطباعة
+                    والتنضيد. لوريم إيبسوم هو نص وهمي للطباعة.
                   </p>
                   <div className="footer-address">
                     <ul>
@@ -66,30 +66,26 @@ class Footer_v1 extends Component {
                           <i className="icon-placeholder" />
                         </div>
                         <div className="footer-address-info">
-                          <p>Egypt , cairo</p>
+                          <p>مصر، القاهرة</p>
                         </div>
                       </li>
                       <li>
                         <div className="footer-address-icon">
-                          
                         </div>
                         <div className="footer-address-info">
-  <p>
-    <i className="icon-call" />
-    <a href="tel:+01120761611">01120761611</a>
-  </p>
-  <p>
-    <i className="icon-call" />
-    <a href="tel:+01092952221">01092952221</a>
-  </p>
-  <p>
-    <i className="icon-call" />
-    <a href="tel:+01028998815">01028998815</a>
-  </p>
-</div>
-
-
-
+                          <p>
+                            <i className="icon-call" />
+                            <a href="tel:+01120761611">01120761611</a>
+                          </p>
+                          <p>
+                            <i className="icon-call" />
+                            <a href="tel:+01092952221">01092952221</a>
+                          </p>
+                          <p>
+                            <i className="icon-call" />
+                            <a href="tel:+01028998815">01028998815</a>
+                          </p>
+                        </div>
                       </li>
                       <li>
                         <div className="footer-address-icon">
@@ -97,10 +93,9 @@ class Footer_v1 extends Component {
                         </div>
                         <div className="footer-address-info">
                           <p>
-                          <a href="mailto:mohamed.aboseada@offices.net?Subject=Flower%20greetings%20to%20you">
-   mohamed.aboseada@offices.net
-</a>
-
+                            <a href="mailto:mohamed.aboseada@offices.net?Subject=Flower%20greetings%20to%20you">
+                              mohamed.aboseada@offices.net
+                            </a>
                           </p>
                         </div>
                       </li>
@@ -113,17 +108,17 @@ class Footer_v1 extends Component {
               </div>
               <div className="col-xl-2 col-md-6 col-sm-6 col-12">
                 <div className="footer-widget footer-menu-widget clearfix">
-                  <h4 className="footer-title">Office</h4>
+                  <h4 className="footer-title">المكتب</h4>
                   <div className="footer-menu go-top">
                     <ul>
                       <li>
-                        <Link to="/about">About</Link>
+                        <Link to="/arabout">عنا</Link>
                       </li>
                       <li>
-                        <Link to="/service">Services</Link>
+                        <Link to="/arservice">خدمات</Link>
                       </li>
                       <li>
-                        <Link to="/contact">Contact</Link>
+                        <Link to="/contact">اتصل بنا</Link>
                       </li>
                     </ul>
                   </div>
@@ -132,17 +127,17 @@ class Footer_v1 extends Component {
               
               <div className="col-xl-2 col-md-6 col-sm-6 col-12">
                 <div className="footer-widget footer-menu-widget clearfix">
-                  <h4 className="footer-title">Customer Care</h4>
+                  <h4 className="footer-title">خدمة العملاء</h4>
                   <div className="footer-menu go-top">
                     <ul>
                       <li>
-                        <Link to="/login">Login</Link>
+                        <Link to="/login">تسجيل الدخول</Link>
                       </li>
                       <li>
-                        <Link to="/my-account">My account</Link>
+                        <Link to="/my-account">حسابي</Link>
                       </li>
                       <li>
-                        <Link to="/contact">Contact us</Link>
+                        <Link to="/contact">اتصل بنا</Link>
                       </li>
                     </ul>
                   </div>

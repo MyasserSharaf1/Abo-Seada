@@ -34,14 +34,14 @@ const AboutV1 = () => {
   }, []);
 
   return (
-    <div className="ltn__about-us-area pt-120 pb-90 ">
+    <div className="ltn__about-us-area pt-120 pb-90">
       <div className="container">
         <div className="row">
           <div className="col-lg-6 align-self-center">
             <div className="about-us-img-wrap about-img-left">
               <img
                 src="https://media.istockphoto.com/id/1096860416/photo/accountant-working-with-us-tax-forms.jpg?s=612x612&w=0&k=20&c=iTeEa7-FrsAdM2DGPxnx_T7dyoW9MKK_4hauIEFNTAo="
-                alt="About Us Image"
+                alt="صورة عنا"
               />
               <div className="about-us-img-info about-us-img-info-2 about-us-img-info-3">
                 <div className="ltn__video-img ltn__animation-pulse1"></div>
@@ -52,27 +52,27 @@ const AboutV1 = () => {
             <div className="about-us-info-wrap">
               <div className="section-title-area ltn__section-title-2--- mb-20">
                 <h6 className="section-subtitle section-subtitle-2 ltn__secondary-color">
-                  About Us
+                  عنا
                 </h6>
-                <h1 className="section-title">Our Services</h1>
+                <h1 className="section-title">خدماتنا</h1>
               </div>
               <ul className="ltn__list-item-half clearfix">
                 {services.length > 0 ? (
                   services.map((service, index) => (
                     <li key={index}>
                       <i className={`flaticon-${service.icon}`} />
-                      {service.name}
+                      {service.arname} {/* This can remain as is if service names are already in Arabic */}
                     </li>
                   ))
                 ) : (
-                  <li>Loading services...</li>
+                  <li>جاري تحميل الخدمات...</li>
                 )}
               </ul>
               
-              <div className="ltn__callout bg-overlay-theme-05  mt-30"></div>
+              <div className="ltn__callout bg-overlay-theme-05 mt-30"></div>
               <div className="btn-wrapper animated go-top">
                 <Link to="/service" className="theme-btn-1 btn btn-effect-1">
-                  View Services
+                  عرض الخدمات
                 </Link>
               </div>
             </div>

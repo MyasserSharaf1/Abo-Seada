@@ -39,8 +39,8 @@ const ServiceV5 = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="section-title-area ltn__section-title-2--- text-center">
-              <h6 className="section-subtitle section-subtitle-2 ltn__secondary-color">Our Services</h6>
-              <h1 className="section-title">Our Core Services</h1>
+              <h6 className="section-subtitle section-subtitle-2 ltn__secondary-color">خدماتنا</h6>
+              <h1 className="section-title">خدماتنا الأساسية</h1>
             </div>
           </div>
         </div>
@@ -53,11 +53,11 @@ const ServiceV5 = () => {
                 </div>
                 <div className="ltn__feature-info">
                   <h3>
-                    <Link to={{ pathname: "/service-details", state: { service } }}>
-                      {service.name}
+                    <Link to={{ pathname: "/arservice-details", state: { service } }}>
+                      {service.arname}
                     </Link>
                   </h3>
-                  <p>{service.brief_en}</p>
+                  <p>{service.brief_ar}</p> {/* Assuming you have a brief_ar field for Arabic description */}
                 </div>
               </div>
             </div>
