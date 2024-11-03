@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import parse from 'html-react-parser';
+import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBsicCTmMLWPMSyHxOfMnr_SVQ8m-rCoUM",
@@ -18,7 +16,29 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 class ContactForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      services: [],  // To store service options from Firestore
+    };
+  }
+
   componentDidMount() {
+    this.fetchServices();
+    this.initializeFormSubmission();
+  }
+
+  fetchServices = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'services'));
+      const services = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      this.setState({ services });
+    } catch (error) {
+      console.error("Error fetching services: ", error);
+    }
+  };
+
+  initializeFormSubmission = () => {
     const $ = window.$;
     const form = $('#contact-form');
     const formMessages = $('.form-messege');
@@ -53,10 +73,11 @@ class ContactForm extends Component {
           $(formMessages).text(`Error: ${error.message}`);
         });
     });
-  }
+  };
 
   render() {
     let publicUrl = process.env.PUBLIC_URL + '/';
+    const { services } = this.state;
 
     return (
       <div className="ltn__contact-message-area mb-120 mb--100">
@@ -81,12 +102,11 @@ class ContactForm extends Component {
                       <div className="input-item">
                         <select className="nice-select" name="service" required>
                           <option>Select Service Type</option>
-                          <option>Property Management</option>
-                          <option>Mortgage Service</option>
-                          <option>Consulting Service</option>
-                          <option>Home Buying</option>
-                          <option>Home Selling</option>
-                          <option>Escrow Services</option>
+                          {services.map((service) => (
+                            <option key={service.id} value={service.name}>
+                              {service.name}
+                            </option>
+                          ))}
                         </select>
                       </div>
                     </div>
@@ -106,7 +126,7 @@ class ContactForm extends Component {
                   </p>
                   <div className="btn-wrapper mt-0">
                     <button className="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">
-                      get a free service
+                      request service
                     </button>
                   </div>
                   <p className="form-messege mb-0 mt-20" />

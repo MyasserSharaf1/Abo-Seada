@@ -71,7 +71,7 @@ const AboutV1 = () => {
               
               <div className="ltn__callout bg-overlay-theme-05 mt-30"></div>
               <div className="btn-wrapper animated go-top">
-                <Link to="/service" className="theme-btn-1 btn btn-effect-1">
+                <Link to="/arservice" className="theme-btn-1 btn btn-effect-1">
                   عرض الخدمات
                 </Link>
               </div>

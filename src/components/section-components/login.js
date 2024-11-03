@@ -11,7 +11,7 @@ const firebaseConfig = {
   projectId: "abu-seada-office",
   storageBucket: "abu-seada-office.appspot.com",
   messagingSenderId: "567437272231",
-  appId: "1:567437272231:web:a444f7e762df0f69c8a782"
+  appId: "1:567437272231:web:a444f7e762df0f69c8a782",
 };
 
 // Initialize Firebase
@@ -75,7 +75,7 @@ class Login extends Component {
     this.setState({ isAuthenticated: true });
 
     // Check if the user exists in the 'User' collection
-    const userRef = doc(db, 'User', user.uid);
+    const userRef = doc(db, 'Users', user.uid);
     const userDoc = await getDoc(userRef);
 
     if (!userDoc.exists()) {
@@ -98,6 +98,7 @@ class Login extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
+    console.log('Attempting sign-in with:', email, password); // Debugging line
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);

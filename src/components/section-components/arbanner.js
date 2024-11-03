@@ -70,7 +70,7 @@ class Banner extends Component {
                         <div className="slide-brief animated"></div>
                         <div className="btn-wrapper animated ">
                           <Link
-                            to="/about"
+                            to="/arabout"
                             className="theme-btn-1 btn btn-effect-1 go-top"
                           >
                             قدم استفسار
@@ -108,13 +108,13 @@ class Banner extends Component {
                         <div className="slide-brief animated"></div>
                         <div className="btn-wrapper animated">
                           <Link
-                            to="/service"
+                            to="/arservice"
                             className="theme-btn-1 btn btn-effect-1"
                           >
                             خدماتنا
                           </Link>
                           <Link
-                            to="/about"
+                            to="/arabout"
                             className="btn btn-transparent btn-effect-3"
                           >
                             اعرف المزيد

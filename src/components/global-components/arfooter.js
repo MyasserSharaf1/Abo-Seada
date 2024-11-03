@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Social from "../section-components/social";
+//import Social from "../section-components/social";
 import Copyright from "./copyright";
 
 class Footer_v1 extends Component {
@@ -55,10 +55,6 @@ class Footer_v1 extends Component {
                       />
                     </div>
                   </div>
-                  <p>
-                    لوريم إيبسوم هو نص وهمي يستخدم في صناعة الطباعة
-                    والتنضيد. لوريم إيبسوم هو نص وهمي للطباعة.
-                  </p>
                   <div className="footer-address">
                     <ul>
                       <li>
@@ -102,7 +98,7 @@ class Footer_v1 extends Component {
                     </ul>
                   </div>
                   <div className="ltn__social-media mt-20">
-                    <Social />
+                   {/*<Social />*/} 
                   </div>
                 </div>
               </div>
@@ -130,12 +126,6 @@ class Footer_v1 extends Component {
                   <h4 className="footer-title">خدمة العملاء</h4>
                   <div className="footer-menu go-top">
                     <ul>
-                      <li>
-                        <Link to="/login">تسجيل الدخول</Link>
-                      </li>
-                      <li>
-                        <Link to="/my-account">حسابي</Link>
-                      </li>
                       <li>
                         <Link to="/contact">اتصل بنا</Link>
                       </li>

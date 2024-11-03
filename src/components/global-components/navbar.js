@@ -93,7 +93,7 @@ class Navbar extends Component {
                           </div>
                         </li>
                         <li>
-                          <Social />
+                           {/*<Social />*/} 
                         </li>
                       </ul>
                     </div>
@@ -135,6 +135,11 @@ class Navbar extends Component {
                     <nav>
                       <div className="ltn__main-menu go-top">
                         <ul>
+                          <li><Link
+                            to="/arhome-v1"
+                          >
+                           العربية
+                          </Link></li>
                           <li>
                             <Link to="/">Home</Link>
                           </li>
@@ -161,9 +166,7 @@ class Navbar extends Component {
                               <li>
                                 <Link to="/login">Sign in</Link>
                               </li>
-                              <li>
-                                <Link to="/register">Register</Link>
-                              </li>
+                              
                             </ul>
                           </li>
                           <li>
@@ -200,8 +203,8 @@ class Navbar extends Component {
                     <Link to="/login">Sign in</Link>
                   </li>
                   <li>
-                    <Link to="/register">Register</Link>
-                  </li>
+                                <Link to="/my-account">My Account</Link>
+                              </li>
                 </>
               )}
                         </ul>
@@ -258,6 +261,11 @@ class Navbar extends Component {
             </div>
             <div className="ltn__utilize-menu">
               <ul>
+              <li><Link
+                            to="/arhome-v1"
+                          >
+                           العربية
+                          </Link></li>
                 <li>
                   <a href="#">Home</a>
                 </li>
@@ -283,9 +291,6 @@ class Navbar extends Component {
                     </li>
                     <li>
                       <Link to="/login">Sign in</Link>
-                    </li>
-                    <li>
-                      <Link to="/register">Register</Link>
                     </li>
                   </ul>
                 </li>

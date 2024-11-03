@@ -53,6 +53,7 @@ class Root extends Component {
               <Route path="/404" component={Error} />
               <Route path="/location" component={Location} />
               <Route path="/contact" component={Contact} />
+              
               <Route path="/feedback" component={feedback} />
               <Route path="/my-account" component={MyAccount} />
               <Route path="/login" component={Login} />

@@ -10,12 +10,7 @@ const Home_V1 = () => {
     return (
         <div>
             <Navbar />
-            <Link
-                            to="/"
-                            className="btn btn-transparent btn-effect-3"
-                          >
-                            translate to english
-                          </Link>
+            
             <Banner />
             <Aboutv1 />
             

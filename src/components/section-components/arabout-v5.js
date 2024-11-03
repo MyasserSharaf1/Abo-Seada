@@ -66,7 +66,7 @@ class AboutV5 extends Component {
                 <div className="about-us-info-wrap-inner about-us-info-devide---">
                 </div>
                 <div className="btn-wrapper animated">
-                  <Link to="/about" className="theme-btn-1 btn btn-effect-1 text-uppercase">معلومات عنا</Link>
+                  <Link to="/arabout" className="theme-btn-1 btn btn-effect-1 text-uppercase">معلومات عنا</Link>
                 </div>
               </div>
             </div>

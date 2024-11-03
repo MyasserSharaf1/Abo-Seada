@@ -14,9 +14,7 @@ const ServiceDetails = () => {
         <div className="row">
           <div className="col-lg-8">
             <div className="ltn__page-details-inner ltn__service-details-inner">
-              <div className="ltn__blog-img">
-                <img src={publicUrl + "assets/img/service/21.jpg"} alt="Image" />
-              </div>
+              
               <h1>{service ? service.arname : 'اسم الخدمة'}</h1>
               <p>{service ? service.detailed_ar : 'وصف الخدمة هنا. إذا لم يتم العثور على وصف، سيتم عرض هذا النص الافتراضي.'}</p>
               <div className="row">

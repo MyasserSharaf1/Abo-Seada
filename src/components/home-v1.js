@@ -10,12 +10,7 @@ const Home_V1 = () => {
     return (
         <div>
             <Navbar />
-            <Link
-                            to="/arhome-v1"
-                            className="btn btn-transparent btn-effect-3"
-                          >
-                            translate to arabic
-                          </Link>
+            
             <Banner />
             <Aboutv1 />
             

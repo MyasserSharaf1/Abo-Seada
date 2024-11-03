@@ -87,7 +87,7 @@ class Navbar extends Component {
                           </div>
                         </li>
                         <li>
-                          <Social />
+                           {/*<Social />*/} 
                         </li>
                       </ul>
                     </div>
@@ -130,6 +130,13 @@ class Navbar extends Component {
                       <div className="ltn__main-menu go-top">
                         <ul>
                           <li>
+                          <Link
+                            to="/"
+                          >
+                            English
+                          </Link>
+                          </li>
+                          <li>
                             <Link to="/arhome-v1">الرئيسية</Link>
                           </li>
                           <li>
@@ -154,9 +161,6 @@ class Navbar extends Component {
                               </li>
                               <li>
                                 <Link to="/login">تسجيل الدخول</Link>
-                              </li>
-                              <li>
-                                <Link to="/register">تسجيل</Link>
                               </li>
                             </ul>
                           </li>
@@ -191,7 +195,7 @@ class Navbar extends Component {
                                 <Link to="/login">تسجيل الدخول</Link>
                               </li>
                               <li>
-                                <Link to="/register">تسجيل</Link>
+                                <Link to="/my-account">حسابي</Link>
                               </li>
                             </>
                           )}
@@ -247,6 +251,11 @@ class Navbar extends Component {
             </div>
             <div className="ltn__utilize-menu">
               <ul>
+              <Link
+                            to="/"
+                          >
+                            English
+                          </Link>
                 <li>
                   <a href="#">الرئيسية</a>
                 </li>

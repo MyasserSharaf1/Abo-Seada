@@ -55,10 +55,6 @@ class Footer_v1 extends Component {
                       />
                     </div>
                   </div>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the and typesetting
-                    industry. Lorem Ipsum is dummy text of the printing.
-                  </p>
                   <div className="footer-address">
                     <ul>
                       <li>
@@ -107,7 +103,7 @@ class Footer_v1 extends Component {
                     </ul>
                   </div>
                   <div className="ltn__social-media mt-20">
-                    <Social />
+                     {/*<Social />*/} 
                   </div>
                 </div>
               </div>
@@ -135,12 +131,6 @@ class Footer_v1 extends Component {
                   <h4 className="footer-title">Customer Care</h4>
                   <div className="footer-menu go-top">
                     <ul>
-                      <li>
-                        <Link to="/login">Login</Link>
-                      </li>
-                      <li>
-                        <Link to="/my-account">My account</Link>
-                      </li>
                       <li>
                         <Link to="/contact">Contact us</Link>
                       </li>
