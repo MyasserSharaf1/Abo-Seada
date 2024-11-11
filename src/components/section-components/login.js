@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, OAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
@@ -20,14 +20,6 @@ const app = initializeApp(firebaseConfig);
 // Get auth instance and Firestore instance
 const auth = getAuth(app);
 const db = getFirestore(app);
-auth.languageCode = 'en';
-const googleProvider = new GoogleAuthProvider();
-googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-const facebookProvider = new FacebookAuthProvider();
-//facebookProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-const appleProvider = new OAuthProvider('apple.com');
-appleProvider.addScope('email');
-appleProvider.addScope('name');
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -38,36 +30,6 @@ class Login extends Component {
       error: null,
       isAuthenticated: false // Initialize isAuthenticated to false
     };
-  }
-
-  handleGoogleSignIn = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        this.handleSignInSuccess(result.user);
-      })
-      .catch((error) => {
-        this.handleSignInError(error);
-      });
-  }
-
-  handleFacebookSignIn = () => {
-    signInWithPopup(auth, facebookProvider)
-      .then((result) => {
-        this.handleSignInSuccess(result.user);
-      })
-      .catch((error) => {
-        this.handleSignInError(error);
-      });
-  }
-
-  handleAppleSignIn = () => {
-    signInWithPopup(auth, appleProvider)
-      .then((result) => {
-        this.handleSignInSuccess(result.user);
-      })
-      .catch((error) => {
-        this.handleSignInError(error);
-      });
   }
 
   handleSignInSuccess = async (user) => {
@@ -148,77 +110,10 @@ class Login extends Component {
                       <button className="theme-btn-1 btn btn-block" type="submit">SIGN IN</button>
                     </div>
                   </form>
-                  <div className="go-to-btn mt-20">
-                    <a href="#" title="Forgot Password?" data-bs-toggle="modal" data-bs-target="#ltn_forget_password_modal"><small>FORGOTTEN YOUR PASSWORD?</small></a>
-                  </div>
+                  
                 </div>
               </div>
-              <div className="col-lg-6">
-                <div className="account-create text-center pt-50">
-                  <h4>DON'T HAVE AN ACCOUNT?</h4>
-                  <p>Add items to your wishlist, get personalized recommendations, check out more quickly, track your orders, register</p>
-                  <div className="btn-wrapper go-top">
-                    <Link to="/register" className="theme-btn-1 btn black-btn">CREATE ACCOUNT</Link>
-                  </div>
-                  <div className="btn-wrapper go-top">
-                    <button
-                      onClick={this.handleGoogleSignIn}
-                      className="theme-btn-1 btn white-btn"
-                      style={{
-                        backgroundColor: '#ffffff', // White background
-                        color: '#000000', // Black text color
-                        border: '1px solid #f0c14b', // Thin yellow border
-                        borderRadius: '20px', // Curved corners
-                        padding: '12px 20px', // Padding
-                        fontSize: '16px', // Font size
-                        cursor: 'pointer', // Cursor style
-                        transition: 'background-color 0.3s ease, border-color 0.3s ease', // Transition for background and border color
-                        marginBottom: '10px' // Space below the button
-                      }}
-                    >
-                      <i className="fab fa-google" style={{ marginRight: '10px' }} /> Sign in with Google
-                    </button>
-                  </div>
-                  <div className="btn-wrapper go-top">
-                    <button
-                      onClick={this.handleFacebookSignIn}
-                      className="theme-btn-1 btn white-btn"
-                      style={{
-                        backgroundColor: '#ffffff', // White background
-                        color: '#000000', // Black text color
-                        border: '1px solid #f0c14b', // Thin yellow border
-                        borderRadius: '20px', // Curved corners
-                        padding: '12px 20px', // Padding
-                        fontSize: '16px', // Font size
-                        cursor: 'pointer', // Cursor style
-                        transition: 'background-color 0.3s ease, border-color 0.3s ease', // Transition for background and border color
-                        marginBottom: '10px' // Space below the button
-                      }}
-                    >
-                      <i className="fab fa-facebook-f" style={{ marginRight: '10px' }} /> Sign in with Facebook
-                    </button>
-                  </div>
-                  <div className="btn-wrapper go-top">
-                    <button
-                      onClick={this.handleAppleSignIn}
-                      className="theme-btn-1 btn white-btn"
-                      style={{
-                        backgroundColor: '#ffffff', // White background
-                        color: '#000000', // Black text color
-                        border: '1px solid #f0c14b', // Thin yellow border
-                        borderRadius: '20px', // Curved corners
-                        padding: '12px 20px', // Padding
-                        fontSize: '16px', // Font size
-                        cursor: 'pointer', // Cursor style
-                        transition: 'background-color 0.3s ease, border-color 0.3s ease', // Transition for background and border color
-                        marginBottom: '10px' // Space below the button
-                      }}
-                    >
-                      <i className="fab fa-apple" style={{ marginRight: '10px' }} /> Sign in with Apple
-                    </button>
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>

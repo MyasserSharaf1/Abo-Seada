@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './global-components/arnavbar';
-import PageHeader from './global-components/page-header';
+import PageHeader from './global-components/arbage-header';
 import AboutV4 from './section-components/arabout-v5';
 import ServiceV1 from './section-components/arservice-v1';
 

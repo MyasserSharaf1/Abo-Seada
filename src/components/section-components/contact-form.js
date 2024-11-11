@@ -32,6 +32,7 @@ class ContactForm extends Component {
     try {
       const querySnapshot = await getDocs(collection(db, 'services'));
       const services = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      console.log('Fetched services:', services); // Debugging line
       this.setState({ services });
     } catch (error) {
       console.error("Error fetching services: ", error);

@@ -26,9 +26,11 @@ class OfficeServices extends Component {
       user: null,
       services: [],
       offices: [],
+      messages: [], // New state variable for messages
       loading: true,
-      showOffices: false, // State to control office table visibility
-      showServices: false, // State to control service table visibility
+      showOffices: false,
+      showServices: false,
+      showMessages: false, // New state variable to control message table visibility
     };
   }
 
@@ -46,6 +48,10 @@ class OfficeServices extends Component {
           const officeData = officeSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           this.setState({ offices: officeData });
 
+          // Fetch messages from Firestore
+          const messagesSnapshot = await getDocs(collection(db, 'Messages'));
+          const messagesData = messagesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          this.setState({ messages: messagesData });
         } catch (error) {
           console.error("Error fetching data: ", error);
         }
@@ -118,6 +124,14 @@ class OfficeServices extends Component {
     }));
   }
 
+  toggleMessages = () => {
+    this.setState((prevState) => ({
+      showMessages: !prevState.showMessages,
+      showOffices: false,
+      showServices: false,
+    }));
+  }
+
   handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -129,8 +143,8 @@ class OfficeServices extends Component {
       });
   };
 
-  renderTable = () => {
-    const { showOffices, offices, showServices, services } = this.state;
+   renderTable = () => {
+    const { showOffices, offices, showServices, services, showMessages, messages } = this.state;
 
     return (
       <>
@@ -150,16 +164,64 @@ class OfficeServices extends Component {
             <tbody>
               {offices.map((office) => (
                 <tr key={office.id}>
-                  <td><input type="text" name="arname" value={office.arname} onChange={(e) => this.handleChange(e, 'offices', office.id)} /></td>
-                  <td><input type="text" name="arslogan_1" value={office.arslogan_1} onChange={(e) => this.handleChange(e, 'offices', office.id)} /></td>
-                  <td><input type="text" name="arslogan_2" value={office.arslogan_2} onChange={(e) => this.handleChange(e, 'offices', office.id)} /></td>
-                  <td><input type="text" name="officename" value={office.officename} onChange={(e) => this.handleChange(e, 'offices', office.id)} /></td>
-                  <td><input type="text" name="slogan_1" value={office.slogan_1} onChange={(e) => this.handleChange(e, 'offices', office.id)} /></td>
-                  <td><input type="text" name="slogan_2" value={office.slogan_2} onChange={(e) => this.handleChange(e, 'offices', office.id)} /></td>
-                  <td>
-                    <button onClick={(e) => this.handleUpdateOffice(e, office.id)}>Update Office</button>
-                  </td>
-                </tr>
+                <td>
+                  <textarea
+                    name="arname"
+                    value={office.arname}
+                    onChange={(e) => this.handleChange(e, 'offices', office.id)}
+                    style={{ height: 'auto', width: '100%' }}
+                    rows={1}
+                  />
+                </td>
+                <td>
+                  <textarea
+                    name="arslogan_1"
+                    value={office.arslogan_1}
+                    onChange={(e) => this.handleChange(e, 'offices', office.id)}
+                    style={{ height: 'auto', width: '100%' }}
+                    rows={1}
+                  />
+                </td>
+                <td>
+                  <textarea
+                    name="arslogan_2"
+                    value={office.arslogan_2}
+                    onChange={(e) => this.handleChange(e, 'offices', office.id)}
+                    style={{ height: 'auto', width: '100%' }}
+                    rows={1}
+                  />
+                </td>
+                <td>
+                  <textarea
+                    name="officename"
+                    value={office.officename}
+                    onChange={(e) => this.handleChange(e, 'offices', office.id)}
+                    style={{ height: 'auto', width: '100%' }}
+                    rows={1}
+                  />
+                </td>
+                <td>
+                  <textarea
+                    name="slogan_1"
+                    value={office.slogan_1}
+                    onChange={(e) => this.handleChange(e, 'offices', office.id)}
+                    style={{ height: 'auto', width: '100%' }}
+                    rows={1}
+                  />
+                </td>
+                <td>
+                  <textarea
+                    name="slogan_2"
+                    value={office.slogan_2}
+                    onChange={(e) => this.handleChange(e, 'offices', office.id)}
+                    style={{ height: 'auto', width: '100%' }}
+                    rows={1}
+                  />
+                </td>
+                <td>
+                  <button onClick={(e) => this.handleUpdateOffice(e, office.id)}>Update Office</button>
+                </td>
+              </tr>
               ))}
             </tbody>
           </table>
@@ -180,16 +242,90 @@ class OfficeServices extends Component {
             </thead>
             <tbody>
               {services.map((service) => (
-                <tr key={service.id}>
-                  <td><input type="textarea" name="arname" value={service.arname} onChange={(e) => this.handleChange(e, 'services', service.id)} /></td>
-                  <td><input type="textarea" name="brief_ar" value={service.brief_ar} onChange={(e) => this.handleChange(e, 'services', service.id)} /></td>
-                  <td><input type="textarea" name="brief_en" value={service.brief_en} onChange={(e) => this.handleChange(e, 'services', service.id)} /></td>
-                  <td><input type="textarea" name="detailed_ar" value={service.detailed_ar} onChange={(e) => this.handleChange(e, 'services', service.id)} /></td>
-                  <td><input type="textarea" name="detailed_en" value={service.detailed_en} onChange={(e) => this.handleChange(e, 'services', service.id)} /></td>
-                  <td><input type="textarea" name="name" value={service.name} onChange={(e) => this.handleChange(e, 'services', service.id)} /></td>
-                  <td>
-                    <button onClick={(e) => this.handleUpdateService(e, service.id)}>Update Service</button>
-                  </td>
+               <tr key={service.id}>
+  <td>
+    <textarea
+      name="arname"
+      value={service.arname}
+      onChange={(e) => this.handleChange(e, 'services', service.id)}
+      style={{ height: 'auto', width: '100%' }}
+      rows={1}
+    />
+  </td>
+  <td>
+    <textarea
+      name="brief_ar"
+      value={service.brief_ar}
+      onChange={(e) => this.handleChange(e, 'services', service.id)}
+      style={{ height: 'auto', width: '100%' }}
+      rows={1}
+    />
+  </td>
+  <td>
+    <textarea
+      name="brief_en"
+      value={service.brief_en}
+      onChange={(e) => this.handleChange(e, 'services', service.id)}
+      style={{ height: 'auto', width: '100%' }}
+      rows={1}
+    />
+  </td>
+  <td>
+    <textarea
+      name="detailed_ar"
+      value={service.detailed_ar}
+      onChange={(e) => this.handleChange(e, 'services', service.id)}
+      style={{ height: 'auto', width: '100%' }}
+      rows={1}
+    />
+  </td>
+  <td>
+    <textarea
+      name="detailed_en"
+      value={service.detailed_en}
+      onChange={(e) => this.handleChange(e, 'services', service.id)}
+      style={{ height: 'auto', width: '100%' }}
+      rows={1}
+    />
+  </td>
+  <td>
+    <textarea
+      name="name"
+      value={service.name}
+      onChange={(e) => this.handleChange(e, 'services', service.id)}
+      style={{ height: 'auto', width: '100%' }}
+      rows={1}
+    />
+  </td>
+  <td>
+    <button onClick={(e) => this.handleUpdateService(e, service.id)}>Update Service</button>
+  </td>
+</tr>
+
+              ))}
+            </tbody>
+          </table>
+        )}
+
+{showMessages && (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Service</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              {messages.map((message) => (
+                <tr key={message.id}>
+                  <td>{message.name}</td>
+                  <td>{message.email}</td>
+                  <td>{message.phone}</td>
+                  <td>{message.service}</td>
+                  <td><textarea value={message.message}/></td>
                 </tr>
               ))}
             </tbody>
@@ -222,6 +358,7 @@ class OfficeServices extends Component {
                 <div className="button-group" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <button onClick={this.toggleOffices} className={this.state.showOffices ? 'active' : ''}>Office Data</button>
                   <button onClick={this.toggleServices} className={this.state.showServices ? 'active' : ''}>Service Data</button>
+                  <button onClick={this.toggleMessages} className={this.state.showMessages ? 'active' : ''}>View Messages</button>
                   <button onClick={this.handleSignOut}>Logout</button>
                 </div>
               </div>
