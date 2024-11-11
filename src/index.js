@@ -32,12 +32,12 @@ import Login from "./components/login";
 import Register from "./components/register";
 
 
-import { MoralisProvider } from "react-moralis";
+//import { MoralisProvider } from "react-moralis";
 
 class Root extends Component {
   render() {
     return (
-      <MoralisProvider initializeOnMount={false}>
+      
         <HashRouter basename="/">
           <div>
             <Switch>
@@ -61,7 +61,7 @@ class Root extends Component {
             </Switch>
           </div>
         </HashRouter>
-      </MoralisProvider>
+      
     );
   }
 }
