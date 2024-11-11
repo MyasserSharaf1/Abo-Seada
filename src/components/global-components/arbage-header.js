@@ -9,7 +9,7 @@ class Page_header extends Component {
         let publicUrl = process.env.PUBLIC_URL+'/'
         let Subheader = this.props.subheader ? this.props.subheader : HeaderTitle
 		let CustomClass = this.props.customclass ? this.props.customclass : ''
-        let Img = this.props.Img ? this.props.Img :'14.jpg'
+        
 
         return (
 

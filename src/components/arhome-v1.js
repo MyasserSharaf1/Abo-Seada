@@ -1,6 +1,5 @@
 // src/components/Home_V1.js
 import React from 'react';
-import { Link } from "react-router-dom";
 import Navbar from './global-components/arnavbar';
 import Banner from './section-components/arbanner';
 import Aboutv1 from './section-components/arabout-v1';

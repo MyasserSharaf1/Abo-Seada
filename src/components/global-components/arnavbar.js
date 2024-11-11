@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Social from "../section-components/social";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 class Navbar extends Component {
