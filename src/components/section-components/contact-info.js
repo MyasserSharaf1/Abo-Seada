@@ -39,16 +39,7 @@ class ContactInfo extends Component {
   </p>
 					</div>
 					</div>
-					<div className="col-lg-4">
-					<div className="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
-						<div className="ltn__contact-address-icon">
-						<img src={publicUrl+"assets/img/icons/12.png"} alt="Icon Image" />
-						</div>
-						<h3>Office Address</h3>
-						<p>18/A, New Born Town Hall <br />
-						New York, US</p>
-					</div>
-					</div>
+					
 				</div>
 				</div>
 			</div>

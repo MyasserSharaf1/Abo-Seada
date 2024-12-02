@@ -102,13 +102,14 @@ class ContactForm extends Component {
                     <div className="col-md-6">
                       <div className="input-item">
                         <select className="nice-select" name="service" required>
-                          <option>Select Service Type</option>
-                          {services.map((service) => (
-                            <option key={service.id} value={service.name}>
-                              {service.name}
-                            </option>
-                          ))}
-                        </select>
+  <option>Select Service Type</option>
+  {services.map((service) => (
+    <option key={service.id} value={service.name}>
+       {service.name} / {service.arname}
+    </option>
+  ))}
+</select>
+
                       </div>
                     </div>
                     <div className="col-md-6">
