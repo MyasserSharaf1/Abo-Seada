@@ -172,6 +172,9 @@ class Navbar extends Component {
                           <li>
                             <Link to="/contact">Contact</Link>
                           </li>
+                          <li>
+                            <Link to="/Training">Apply for training</Link>
+                          </li>
                         </ul>
                       </div>
                     </nav>
@@ -309,12 +312,13 @@ class Navbar extends Component {
                     <li>
                       <Link to="/contact">Contact</Link>
                     </li>
-                  
+                    
                   </ul>
                 </li>
                 <li>
                   <Link to="/contact">Contact</Link>
                 </li>
+                
               </ul>
             </div>
             <div className="ltn__utilize-buttons ltn__utilize-buttons-2">

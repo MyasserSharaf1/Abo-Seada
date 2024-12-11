@@ -138,7 +138,6 @@ class Footer_v1 extends Component {
             </div>
           </div>
         </div>
-        <Copyright />
       </footer>
     );
   }

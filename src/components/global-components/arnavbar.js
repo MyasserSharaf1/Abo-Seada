@@ -166,6 +166,9 @@ class Navbar extends Component {
                           <li>
                             <Link to="/contact">اتصل بنا</Link>
                           </li>
+                          <li>
+                            <Link to="/Training">التقديم للتدريب</Link>
+                          </li>
                         </ul>
                       </div>
                     </nav>

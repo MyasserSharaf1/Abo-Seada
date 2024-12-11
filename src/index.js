@@ -26,6 +26,7 @@ import Location from "./components/location";
 
 import Contact from "./components/contact";
 import feedback from "./components/Feedback";
+import Training from "./components/Training";
 
 import MyAccount from "./components/my-account";
 import Login from "./components/login";
@@ -53,6 +54,7 @@ class Root extends Component {
               <Route path="/404" component={Error} />
               <Route path="/location" component={Location} />
               <Route path="/contact" component={Contact} />
+              <Route path="/Training" component={Training} />
               
               <Route path="/feedback" component={feedback} />
               <Route path="/my-account" component={MyAccount} />

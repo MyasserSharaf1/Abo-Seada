@@ -24,21 +24,11 @@ class ContactForm extends Component {
   }
 
   componentDidMount() {
-    this.fetchServices();
     this.initializeFormSubmission();
   }
 
-  fetchServices = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, 'services'));
-      const services = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      console.log('Fetched services:', services); // Debugging line
-      this.setState({ services });
-    } catch (error) {
-      console.error("Error fetching services: ", error);
-    }
-  };
-
+  
+  
   initializeFormSubmission = () => {
     const $ = window.$;
     const form = $('#contact-form');
@@ -100,16 +90,8 @@ class ContactForm extends Component {
                       </div>
                     </div>
                     <div className="col-md-6">
-                      <div className="input-item">
-                        <select className="nice-select" name="service" required>
-  <option>Select Service Type</option>
-  {services.map((service) => (
-    <option key={service.id} value={service.name}>
-       {service.name} / {service.arname}
-    </option>
-  ))}
-</select>
-
+                    <div className="input-item input-item-name ltn__custom-icon">
+                        <input type="text" name="service" placeholder="Enter your service" required />
                       </div>
                     </div>
                     <div className="col-md-6">
